@@ -12,7 +12,7 @@ export default {
       },
       screens: {
           mobile: { max: "768px" },
-          xxs: { max: "430px" }, //smaller than 474
+          xxs: { max: "360px" }, //smaller than 474
       },
     },
   },

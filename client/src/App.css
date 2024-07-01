@@ -85,9 +85,23 @@
 }
 
 .slick-slider {
-  width: 90%;
-  left: 66px;
+  /* border: 2px solid pink; */
+  left: 72px;
+  width: 80vw;
 }
+@media (max-width: 768px) {
+  .slick-slider {
+    left: 34px;
+    width: 320px;
+  }
+}
+@media (max-width: 360px) {
+  .slick-slider {
+    left: 24px;
+    width: 280px;
+  }
+}
+
 
 /* ===================gridingSystem Featured Location================== */
 
@@ -120,18 +134,6 @@
 }
 
 
-/* ------------react slick--------------- */
-
-.slick-slider {
-  /* border: 2px solid pink; */
-  width: 80vw;
-}
-@media (max-width: 768px) {
-  .slick-slider {
-    /* border: 2px solid pink; */
-    width: 250px;
-  }
-}
 /* ------------nav slider for header - animation --------------- */
 
 .navSlider {
@@ -148,3 +150,6 @@
 .navSlider.open {
   transform: translateX(-100%);
 }
+
+/* -------------aspect ratio------------- */
+

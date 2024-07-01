@@ -11,7 +11,7 @@ const Header = () => {
 
   const navLinks = [
     { to: "/", label: "Home" },
-    { to: "/category", label: "Category" },
+    { to: "/category/all", label: "Category" },
     { to: "/about-us", label: "About Us" },
     { to: "/contact-us", label: "Contact Us" },
   ];
@@ -49,15 +49,19 @@ const Header = () => {
         </div>
       </div>
       <div className="flex mobile:px-2 justify-between items-center h-16 border-b-[1px] border-lightGrey px-14 mobile:no-wrap xxs:no-wrap">
-        <img src={logo} alt="Logo" className="w-[120px] cursor-pointer" />
-        <div className="flex gap-1 bg-lightGrey p-1 rounded-lg mobile:hidden">
+        <Link to="/">
+          <img src={logo} alt="Logo" className="w-[120px] cursor-pointer" />
+        </Link>
+        <div className="flex gap-1 p-1 mobile:hidden">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               className={`text-sm ${
-                location.pathname === link.to
-                  ? "bg-primary text-white"
-                  : "text-darkGrey hover:bg-white/40"
+                location.pathname === link.to ||
+                (link.to === "/category/all" &&
+                  location.pathname.startsWith("/category"))
+                  ? "text-primary font-bold"
+                  : "text-darkGrey hover:text-darkGrey/90"
               } px-3 py-1 rounded-md`}
               to={link.to}
             >
