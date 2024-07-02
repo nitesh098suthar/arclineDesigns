@@ -75,7 +75,6 @@ import Design from "../Model/Design.js";
 // updateDesign,
 
 export const createDesign = catchAsyncError(async (req, res, next) => {
-  console.log("here");
   const {
     designTitle,
     location,
@@ -89,20 +88,6 @@ export const createDesign = catchAsyncError(async (req, res, next) => {
     category,
     designDes,
   } = req.body;
-
-  console.log(
-    designTitle,
-    location,
-    heightInFeet,
-    widthInFeet,
-    noOfBathRooms,
-    noOfBedRooms,
-    architectName,
-    profession,
-    popular,
-    category,
-    designDes
-  );
 
   const areaInSquareFeet = heightInFeet * widthInFeet;
 
@@ -156,13 +141,41 @@ export const createDesign = catchAsyncError(async (req, res, next) => {
 });
 
 export const getAllDesigns = catchAsyncError(async (req, res, next) => {
+  const allListings = await Design.find();
+
   return res.status(201).json({
     success: "true",
-    message: "Created",
+    allListings,
   });
 });
 
-// //delete one course
+export const updateDesign = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+  if (!id) return next(new ErrorHandler("There is no in url"));
+
+  const existingDesign = await Design.findById(id);
+  if (!existingDesign)
+    return next(new ErrorHandler("There is no design with this id"));
+
+  
+
+  return res.status(201).json({
+    success: "true",
+    allListings,
+  });
+});
+
+export const deleteDesign = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+
+  return res.status(201).json({
+    success: "true",
+    allListings,
+  });
+});
+
+// delete one course
 
 // export const deleteCourse = catchAsyncError(async (req, res, next) => {
 //   const { id } = req.params;

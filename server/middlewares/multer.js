@@ -1,9 +1,13 @@
-import multer from "multer"
+// multerConfig.js
+import multer from 'multer';
 
-const storage = multer.memoryStorage();
+const storage = multer.memoryStorage(); // using memory storage to get the files in memory
+const upload = multer({ storage });
 
-// const singleUpload = multer({storage}).single("file")
+const uploadDesignFiles = upload.fields([
+  { name: 'architectImage', maxCount: 1 },
+  { name: 'houseImage', maxCount: 1 },
+  { name: 'allImages' },
+]);
 
-export const uploadArchitectImage = multer({ storage }).single("architectImage");
-export const uploadDesignThumbnail = multer({ storage }).single("houseImage");
-export const uploadDesignElevation = multer({ storage }).array("allImages", 10); // Assuming a max of 10 images for designElevation
+export default uploadDesignFiles;

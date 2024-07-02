@@ -2,13 +2,11 @@ import express from "express";
 import {
   getAllDesigns,
   createDesign,
-  // deleteDesign,
-  // updateDesign,
+  updateDesign,
+  deleteDesign,
 } from "../controllers/designControllers.js";
 
-import { uploadArchitectImage } from "../middlewares/multer.js";
-import { uploadDesignThumbnail } from "../middlewares/multer.js";
-import { uploadDesignElevation } from "../middlewares/multer.js";
+import uploadDesignFiles from "../middlewares/multer.js";
 
 // import singleUpload from "../middlewares/multer.js";
 // import {
@@ -20,13 +18,8 @@ import { uploadDesignElevation } from "../middlewares/multer.js";
 const Router = express.Router();
 
 Router.route("/design")
-  .post(
-    uploadArchitectImage,
-    uploadDesignThumbnail,
-    uploadDesignElevation,
-    createDesign
-  )
+  .post(uploadDesignFiles, createDesign)
   .get(getAllDesigns);
-// Router.route("/design/:id").delete(deleteDesign).put(updateDesign);
+Router.route("/design/:id").put(updateDesign).delete(deleteDesign);
 
 export default Router;
