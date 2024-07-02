@@ -6,7 +6,7 @@
   const CategoryPage = () => {
     const {category} = useParams()
     const filteredCategroy = allListings.filter((items)=>{
-      return items.category.toLowerCase().replace(/\s+/g, "-") === category;
+      return items.category.toLowerCase().replace(/\s+/g, "-") === category
     })
     return (
       <div>
@@ -15,19 +15,19 @@
           {category === "all"
             ? allListings.map((item, index) => {
                 return <Link key={index} to={`/design/${item.id}`}>
-                <ListingCard key={index} item={item} />;
+                <ListingCard key={index} item={item} />
                 
                 </Link> 
               })
             : filteredCategroy.map((item, index) => {
               return <Link key={index} to={`/design/${item.id}`}>
-                <ListingCard key={index} item={item} />;
+                <ListingCard key={index} item={item} />
                 </Link> 
 
               })}
         </div>
       </div>
-    ); 
+    ) 
   }
 
   export default CategoryPage

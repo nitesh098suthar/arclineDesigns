@@ -1,5 +1,5 @@
-import React from "react";
-import Slider from "react-slick";
+import React from "react"
+import Slider from "react-slick"
 
 const testimonials = [
   {
@@ -44,7 +44,7 @@ const testimonials = [
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, velit praesentium quo voluptate necessitatibus maiores iste, optio ipsam doloremque eum ad quas ab mollitia in dolore. Maiores voluptates pariatur sequi.",
     location : "location"
   },
-];
+]
 
 const Testimonials = () => {
   var settings = {
@@ -62,7 +62,7 @@ const Testimonials = () => {
         },
       },
     ],
-  };
+  }
   return (
     <div className="">
       <div className="flex justify-center items-center ">
@@ -74,7 +74,7 @@ const Testimonials = () => {
           </div>
         </div>
       </div>
-      <div className="pl-[5%]">
+      <div className="testimonialSlick">
         <Slider {...settings} className="">
           {testimonials.map((item, i) => (
             <div
@@ -110,7 +110,7 @@ const Testimonials = () => {
         </Slider>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Testimonials;
+export default Testimonials

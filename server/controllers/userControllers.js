@@ -1,391 +1,391 @@
-import { User } from "../Model/User.js";
-import sendToken from "../utils/sendToken.js";
-import ErrorHandler from "../utils/ErrorHandler.js";
-import catchAsyncError from "../middlewares/catchAsyncError.js";
-import { mailSender } from "../utils/mailSender.js";
-import crypto from "crypto";
-import { Course } from "../Model/Course.js";
-import cloudinary from "cloudinary";
-import getDataUri from "../utils/dataUri.js";
+// import { User } from "../Model/User.js";
+// import sendToken from "../utils/sendToken.js";
+// import ErrorHandler from "../utils/ErrorHandler.js";
+// import catchAsyncError from "../middlewares/catchAsyncError.js";
+// import { mailSender } from "../utils/mailSender.js";
+// import crypto from "crypto";
+// // import { Course } from "../Model/Design.js";
+// import cloudinary from "cloudinary";
+// import getDataUri from "../utils/dataUri.js";
 
-export const registerController = catchAsyncError(async (req, res, next) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password)
-    return next(new ErrorHandler("Fill all fields", 500));
+// export const registerController = catchAsyncError(async (req, res, next) => {
+//   const { name, email, password } = req.body;
+//   if (!name || !email || !password)
+//     return next(new ErrorHandler("Fill all fields", 500));
 
-  const isExist = await User.findOne({ email });
-  if (isExist) return next(new ErrorHandler("User already exist", 500));
+//   const isExist = await User.findOne({ email });
+//   if (isExist) return next(new ErrorHandler("User already exist", 500));
 
-  const file = req.file;
-  if (!file) {
-    return next(new ErrorHandler("Avatar is mandatory", 401));
-  }
-  const fileUri = getDataUri(file);
-  const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
+//   const file = req.file;
+//   if (!file) {
+//     return next(new ErrorHandler("Avatar is mandatory", 401));
+//   }
+//   const fileUri = getDataUri(file);
+//   const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
 
-  const newUser = await User.create({
-    name,
-    email,
-    password,
-    avatar: {
-      public_id: myCloud.public_id,
-      url: myCloud.secure_url,
-    },
-  });
+//   const newUser = await User.create({
+//     name,
+//     email,
+//     password,
+//     avatar: {
+//       public_id: myCloud.public_id,
+//       url: myCloud.secure_url,
+//     },
+//   });
 
-  return sendToken(newUser, "User created successfully", 201, res);
-});
+//   return sendToken(newUser, "User created successfully", 201, res);
+// });
 
-export const loginController = catchAsyncError(async (req, res, next) => {
-  const { email, password } = req.body;
+// export const loginController = catchAsyncError(async (req, res, next) => {
+//   const { email, password } = req.body;
 
-  const doesExist = await User.findOne({ email }).select("+password");
+//   const doesExist = await User.findOne({ email }).select("+password");
 
-  if (!doesExist) return next(new ErrorHandler("First reg then login", 500));
+//   if (!doesExist) return next(new ErrorHandler("First reg then login", 500));
 
-  const isLegit = await doesExist.comparePassword(password);
+//   const isLegit = await doesExist.comparePassword(password);
 
-  if (!isLegit) return next(new ErrorHandler("wrong password", 500));
+//   if (!isLegit) return next(new ErrorHandler("wrong password", 500));
 
-  return sendToken(doesExist, "Login Successfully", 200, res);
-});
+//   return sendToken(doesExist, "Login Successfully", 200, res);
+// });
 
-export const logoutController = catchAsyncError(async (req, res, next) => {
-  res
-    .status(200)
-    .cookie("token", null, {
-      expires: new Date(Date.now()),
-    })
-    .json({
-      success: true,
-      message: "Logout Successfully",
-    });
-});
-
-// export const getProfileController = catchAsyncError(async(req, res, next)=>{
-
-//   const fetchingId = req.id
-//   console.log(req.id)
-//   // if(!fetchingId) return next(new ErrorHandler("Unauthorized user first login", 401))
-//     const profile = await User.findById(fetchingId)
-//     if(!profile) return next(new ErrorHandler("Profile fatching failed", 401))
-
-//     console.log(profile)
-//     res.status(201).json({
-//       success : true,
-//       message: "Get profile run successfully",
-//       profile
+// export const logoutController = catchAsyncError(async (req, res, next) => {
+//   res
+//     .status(200)
+//     .cookie("token", null, {
+//       expires: new Date(Date.now()),
 //     })
+//     .json({
+//       success: true,
+//       message: "Logout Successfully",
+//     });
+// });
 
-// })
+// // export const getProfileController = catchAsyncError(async(req, res, next)=>{
 
-export const getProfileController = catchAsyncError(async (req, res, next) => {
-  const userId = req.id;
-  if (!userId) return next(new ErrorHandler("Unauthorized user", 401));
+// //   const fetchingId = req.id
+// //   console.log(req.id)
+// //   // if(!fetchingId) return next(new ErrorHandler("Unauthorized user first login", 401))
+// //     const profile = await User.findById(fetchingId)
+// //     if(!profile) return next(new ErrorHandler("Profile fatching failed", 401))
 
-  const User1 = await User.findById(userId);
-  if (!User1) return next(new ErrorHandler("User not found", 401));
+// //     console.log(profile)
+// //     res.status(201).json({
+// //       success : true,
+// //       message: "Get profile run successfully",
+// //       profile
+// //     })
 
-  return res.status(201).json({
-    success: true,
-    message: "User get successfully",
-    User1,
-  });
-});
+// // })
 
-export const changePasswordController = catchAsyncError(
-  async (req, res, next) => {
-    const userId = req.id;
-    const { oldPassword, newPassword } = req.body;
-    if (!newPassword || !oldPassword)
-      return next(new ErrorHandler("Fill both fields", 500));
-    if (!userId) return next(new ErrorHandler("Unauthorized user", 401));
+// export const getProfileController = catchAsyncError(async (req, res, next) => {
+//   const userId = req.id;
+//   if (!userId) return next(new ErrorHandler("Unauthorized user", 401));
 
-    const User1 = await User.findById(userId).select("+password");
-    // console.log(User1)
-    if (!User1) return next(new ErrorHandler("User not found", 401));
+//   const User1 = await User.findById(userId);
+//   if (!User1) return next(new ErrorHandler("User not found", 401));
 
-    // console.log("---------here========")
-    // console.log("oldPassword",oldPassword, "newPassword", newPassword)
-    const isMatch = await User1.comparePassword(oldPassword);
-    // console.log("---------here1========")
-    // console.log(isMatch)
-    if (!isMatch) return next(new ErrorHandler("oldPassword doesn't match"));
+//   return res.status(201).json({
+//     success: true,
+//     message: "User get successfully",
+//     User1,
+//   });
+// });
 
-    User1.password = newPassword;
-    User1.save();
+// export const changePasswordController = catchAsyncError(
+//   async (req, res, next) => {
+//     const userId = req.id;
+//     const { oldPassword, newPassword } = req.body;
+//     if (!newPassword || !oldPassword)
+//       return next(new ErrorHandler("Fill both fields", 500));
+//     if (!userId) return next(new ErrorHandler("Unauthorized user", 401));
 
-    return res.status(201).json({
-      success: true,
-      message: "Password changed successfully",
-      User1,
-    });
-  }
-);
+//     const User1 = await User.findById(userId).select("+password");
+//     // console.log(User1)
+//     if (!User1) return next(new ErrorHandler("User not found", 401));
 
-export const updateProfileController = catchAsyncError(
-  async (req, res, next) => {
-    const userId = req.id;
-    const { name, email } = req.body;
+//     // console.log("---------here========")
+//     // console.log("oldPassword",oldPassword, "newPassword", newPassword)
+//     const isMatch = await User1.comparePassword(oldPassword);
+//     // console.log("---------here1========")
+//     // console.log(isMatch)
+//     if (!isMatch) return next(new ErrorHandler("oldPassword doesn't match"));
 
-    if (!name || !email) return next(new ErrorHandler("Fill both fields", 500));
-    if (!userId) return next(new ErrorHandler("Unauthorized user", 401));
+//     User1.password = newPassword;
+//     User1.save();
 
-    const User1 = await User.findById(userId);
-    if (!User1) return next(new ErrorHandler("User not found", 401));
+//     return res.status(201).json({
+//       success: true,
+//       message: "Password changed successfully",
+//       User1,
+//     });
+//   }
+// );
 
-    const file = req.file;
-    if (file) {
-      await cloudinary.v2.uploader.destroy(User1.avatar.public_id);
-      const fileUri = getDataUri(file);
-      const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
-      User1.avatar = {
-        public_id: myCloud.public_id,
-        url: myCloud.secure_url,
-      };
-    }
-    if (name) User1.name = name;
-    if (email) User1.email = email;
-    User1.save();
+// export const updateProfileController = catchAsyncError(
+//   async (req, res, next) => {
+//     const userId = req.id;
+//     const { name, email } = req.body;
 
-    return res.status(201).json({
-      success: true,
-      message: "Profile Updated Successfully",
-      User1,
-    });
-  }
-);
+//     if (!name || !email) return next(new ErrorHandler("Fill both fields", 500));
+//     if (!userId) return next(new ErrorHandler("Unauthorized user", 401));
 
-export const updateProfilePictureController = catchAsyncError(
-  async (req, res, next) => {
-    const userId = req.id;
-    if (!userId) return next(new ErrorHandler("Unauthorized user", 401));
+//     const User1 = await User.findById(userId);
+//     if (!User1) return next(new ErrorHandler("User not found", 401));
 
-    const User1 = await User.findById(userId);
-    if (!User1) return next(new ErrorHandler("User not found", 401));
+//     const file = req.file;
+//     if (file) {
+//       await cloudinary.v2.uploader.destroy(User1.avatar.public_id);
+//       const fileUri = getDataUri(file);
+//       const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
+//       User1.avatar = {
+//         public_id: myCloud.public_id,
+//         url: myCloud.secure_url,
+//       };
+//     }
+//     if (name) User1.name = name;
+//     if (email) User1.email = email;
+//     User1.save();
 
-    await cloudinary.v2.uploader.destroy(User1.avatar.public_id);
+//     return res.status(201).json({
+//       success: true,
+//       message: "Profile Updated Successfully",
+//       User1,
+//     });
+//   }
+// );
 
-    const file = req.file;
-    const fileUri = getDataUri(file);
-    const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
+// export const updateProfilePictureController = catchAsyncError(
+//   async (req, res, next) => {
+//     const userId = req.id;
+//     if (!userId) return next(new ErrorHandler("Unauthorized user", 401));
 
-    User1.avatar = {
-      public_id: myCloud.public_id,
-      url: myCloud.secure_url,
-    };
+//     const User1 = await User.findById(userId);
+//     if (!User1) return next(new ErrorHandler("User not found", 401));
 
-    await User1.save();
+//     await cloudinary.v2.uploader.destroy(User1.avatar.public_id);
 
-    return res.status(201).json({
-      success: true,
-      message: "Profile Picture Updated Successfully",
-    });
-  }
-);
+//     const file = req.file;
+//     const fileUri = getDataUri(file);
+//     const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
 
-export const forgetPasswordController = catchAsyncError(
-  async (req, res, next) => {
-    const { email } = req.body;
+//     User1.avatar = {
+//       public_id: myCloud.public_id,
+//       url: myCloud.secure_url,
+//     };
 
-    if (!email) return next(new ErrorHandler("Firts enter email field", 401));
+//     await User1.save();
 
-    const doesExist = await User.findOne({ email });
-    if (!doesExist)
-      return next(
-        new ErrorHandler(
-          "User with this mail doesn't exist in the database",
-          401
-        )
-      );
+//     return res.status(201).json({
+//       success: true,
+//       message: "Profile Picture Updated Successfully",
+//     });
+//   }
+// );
 
-    const subject = "Forget password - CourseBundler";
+// export const forgetPasswordController = catchAsyncError(
+//   async (req, res, next) => {
+//     const { email } = req.body;
 
-    const resetToken = crypto.randomBytes(10).toString("hex");
-    const url = "http://localhost:5173" + "/resetpassword/" + resetToken;
-    const body = url;
-    const mailSendSuccessfully = await mailSender(email, subject, body);
+//     if (!email) return next(new ErrorHandler("Firts enter email field", 401));
 
-    if (!mailSendSuccessfully)
-      return next(new ErrorHandler("Mail sending failed", 500));
+//     const doesExist = await User.findOne({ email });
+//     if (!doesExist)
+//       return next(
+//         new ErrorHandler(
+//           "User with this mail doesn't exist in the database",
+//           401
+//         )
+//       );
 
-    doesExist.ResetPasswordToken = resetToken;
-    doesExist.ResetPasswordExpire = new Date(Date.now() + 15 * 60 * 1000);
-    doesExist.save();
-    return res.status(201).json({
-      success: true,
-      message: `Mail sent successfully on ${email}`,
-    });
-  }
-);
+//     const subject = "Forget password - CourseBundler";
 
-export const resetPasswordController = catchAsyncError(
-  async (req, res, next) => {
-    const { newPassword, confirmPassword } = req.body;
+//     const resetToken = crypto.randomBytes(10).toString("hex");
+//     const url = "http://localhost:5173" + "/resetpassword/" + resetToken;
+//     const body = url;
+//     const mailSendSuccessfully = await mailSender(email, subject, body);
 
-    if (newPassword !== confirmPassword)
-      return next(new ErrorHandler("Both passwords are not matching", 401));
+//     if (!mailSendSuccessfully)
+//       return next(new ErrorHandler("Mail sending failed", 500));
 
-    if (!newPassword || !confirmPassword)
-      return next(new ErrorHandler("Fill all field", 401));
-    // 8:
-    // console.log("here we go " , req)
-    const { token } = req.params;
-    // console.log("token in backend" ,token);
-    const changableUser = await User.findOne({
-      ResetPasswordToken: token,
-      ResetPasswordExpire: { $gt: Date.now() },
-    }).select("+password");
-    // console.log(changableUser);
-    if (!changableUser)
-      return next(new ErrorHandler("Token expired or not found", 401));
+//     doesExist.ResetPasswordToken = resetToken;
+//     doesExist.ResetPasswordExpire = new Date(Date.now() + 15 * 60 * 1000);
+//     doesExist.save();
+//     return res.status(201).json({
+//       success: true,
+//       message: `Mail sent successfully on ${email}`,
+//     });
+//   }
+// );
 
-    await User.findByIdAndUpdate(changableUser._id, {
-      ResetPasswordToken: null,
-      ResetPasswordExpire: null,
-    });
-    changableUser.password = newPassword;
-    changableUser.save();
-    return res.status(200).json({
-      success: true,
-      message: "Password has updated",
-    });
-  }
-);
+// export const resetPasswordController = catchAsyncError(
+//   async (req, res, next) => {
+//     const { newPassword, confirmPassword } = req.body;
 
-export const addToPlaylistController = catchAsyncError(
-  async (req, res, next) => {
-    const userId = req.id;
-    const { courseId } = req.body;
+//     if (newPassword !== confirmPassword)
+//       return next(new ErrorHandler("Both passwords are not matching", 401));
 
-    if (!userId || !courseId)
-      return next(new ErrorHandler("Unauthorized access denied", 401));
+//     if (!newPassword || !confirmPassword)
+//       return next(new ErrorHandler("Fill all field", 401));
+//     // 8:
+//     // console.log("here we go " , req)
+//     const { token } = req.params;
+//     // console.log("token in backend" ,token);
+//     const changableUser = await User.findOne({
+//       ResetPasswordToken: token,
+//       ResetPasswordExpire: { $gt: Date.now() },
+//     }).select("+password");
+//     // console.log(changableUser);
+//     if (!changableUser)
+//       return next(new ErrorHandler("Token expired or not found", 401));
 
-    const theUser = await User.findById(userId);
+//     await User.findByIdAndUpdate(changableUser._id, {
+//       ResetPasswordToken: null,
+//       ResetPasswordExpire: null,
+//     });
+//     changableUser.password = newPassword;
+//     changableUser.save();
+//     return res.status(200).json({
+//       success: true,
+//       message: "Password has updated",
+//     });
+//   }
+// );
 
-    if (!theUser) return next(new ErrorHandler("User not available", 500));
+// export const addToPlaylistController = catchAsyncError(
+//   async (req, res, next) => {
+//     const userId = req.id;
+//     const { courseId } = req.body;
 
-    const theCourse = await Course.findById(courseId);
+//     if (!userId || !courseId)
+//       return next(new ErrorHandler("Unauthorized access denied", 401));
 
-    if (!theCourse) return next(new ErrorHandler("User not available", 500));
+//     const theUser = await User.findById(userId);
 
-    const itemExist = theUser.playlist.find((item) => {
-      if (item.course.toString() === theCourse._id.toString()) return true;
-    });
+//     if (!theUser) return next(new ErrorHandler("User not available", 500));
 
-    if (itemExist)
-      return next(
-        new ErrorHandler("Course already present in your playlist", 409)
-      );
+//     const theCourse = await Course.findById(courseId);
 
-    theUser.playlist.push({
-      courseName: theCourse.title,
-      course: theCourse._id,
-      poster: theCourse.poster.url,
-    });
+//     if (!theCourse) return next(new ErrorHandler("User not available", 500));
 
-    theUser.save();
+//     const itemExist = theUser.playlist.find((item) => {
+//       if (item.course.toString() === theCourse._id.toString()) return true;
+//     });
 
-    return res.status(200).json({
-      success: true,
-      message: "Added to playlist",
-    });
-  }
-);
+//     if (itemExist)
+//       return next(
+//         new ErrorHandler("Course already present in your playlist", 409)
+//       );
 
-export const removeFromPlaylistController = catchAsyncError(
-  async (req, res, next) => {
-    const userId = req.id;
-    const { courseId } = req.query;
-    console.log("courseId,", courseId);
-    if (!userId || !courseId)
-      return next(new ErrorHandler("Unauthorized access denied", 401));
+//     theUser.playlist.push({
+//       courseName: theCourse.title,
+//       course: theCourse._id,
+//       poster: theCourse.poster.url,
+//     });
 
-    const theUser = await User.findById(userId);
-    console.log("got user", !!theUser);
-    if (!theUser) return next(new ErrorHandler("User not available", 500));
+//     theUser.save();
 
-    const theCourse = await Course.findById(courseId); // yeh print nhi ho hia
-    console.log("thecourse", theCourse);
-    if (!theCourse) return next(new ErrorHandler("course not available", 500));
+//     return res.status(200).json({
+//       success: true,
+//       message: "Added to playlist",
+//     });
+//   }
+// );
 
-    const newPlaylist = theUser.playlist.filter((item) => {
-      if (item.course.toString() !== theCourse._id.toString()) return item;
-    });
-    //we're altering theUser.profile so we've to save it using save() method
-    theUser.playlist = newPlaylist;
-    theUser.save();
-    return res.status(200).json({
-      success: true,
-      message: "Remvoed from playlist",
-    });
-  }
-);
+// export const removeFromPlaylistController = catchAsyncError(
+//   async (req, res, next) => {
+//     const userId = req.id;
+//     const { courseId } = req.query;
+//     console.log("courseId,", courseId);
+//     if (!userId || !courseId)
+//       return next(new ErrorHandler("Unauthorized access denied", 401));
 
-//admin controllers
+//     const theUser = await User.findById(userId);
+//     console.log("got user", !!theUser);
+//     if (!theUser) return next(new ErrorHandler("User not available", 500));
 
-export const getAllUsersController = catchAsyncError(async (req, res, next) => {
-  const allUsers = await User.find();
-  res.status(200).json({
-    success: true,
-    allUsers,
-  });
-});
+//     const theCourse = await Course.findById(courseId); // yeh print nhi ho hia
+//     console.log("thecourse", theCourse);
+//     if (!theCourse) return next(new ErrorHandler("course not available", 500));
 
-export const updateRoleController = catchAsyncError(async (req, res, next) => {
-  const { id } = req.params;
-  // console.log("id from controller")
-  const user = await User.findById(id);
-  if (!user) return next(new ErrorHandler("User not found", 404));
+//     const newPlaylist = theUser.playlist.filter((item) => {
+//       if (item.course.toString() !== theCourse._id.toString()) return item;
+//     });
+//     //we're altering theUser.profile so we've to save it using save() method
+//     theUser.playlist = newPlaylist;
+//     theUser.save();
+//     return res.status(200).json({
+//       success: true,
+//       message: "Remvoed from playlist",
+//     });
+//   }
+// );
 
-  if (user.role === "admin") user.role = "user";
-  else user.role = "admin";
+// //admin controllers
 
-  await user.save();
+// export const getAllUsersController = catchAsyncError(async (req, res, next) => {
+//   const allUsers = await User.find();
+//   res.status(200).json({
+//     success: true,
+//     allUsers,
+//   });
+// });
 
-  res.status(200).json({
-    success: true,
-    message: "Role updated successfully",
-  });
-});
+// export const updateRoleController = catchAsyncError(async (req, res, next) => {
+//   const { id } = req.params;
+//   // console.log("id from controller")
+//   const user = await User.findById(id);
+//   if (!user) return next(new ErrorHandler("User not found", 404));
 
-export const deleteAnyUserController = catchAsyncError(
-  async (req, res, next) => {
-    const { id } = req.params;
-    const user = await User.findById(id);
-    if (!user) return next(new ErrorHandler("User not found", 404));
+//   if (user.role === "admin") user.role = "user";
+//   else user.role = "admin";
 
-    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+//   await user.save();
 
-    //cancel subscription
+//   res.status(200).json({
+//     success: true,
+//     message: "Role updated successfully",
+//   });
+// });
 
-    await user.deleteOne();
+// export const deleteAnyUserController = catchAsyncError(
+//   async (req, res, next) => {
+//     const { id } = req.params;
+//     const user = await User.findById(id);
+//     if (!user) return next(new ErrorHandler("User not found", 404));
 
-    res.status(200).json({
-      success: true,
-      message: "User deleted successfully",
-    });
-  }
-);
+//     await cloudinary.v2.uploader.destroy(user.avatar.public_id);
 
-export const deleteProfileController = catchAsyncError(
-  async (req, res, next) => {
-    const id = req.id;
-    const user = await User.findById(id);
-    if (!user) return next(new ErrorHandler("User not found", 404));
+//     //cancel subscription
 
-    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+//     await user.deleteOne();
 
-    //cancel subscription
-    await user.deleteOne();
-    res
-      .status(200)
-      .cookie("token", null, {
-        expires: new Date(Date.now()),
-      })
-      .json({
-        success: true,
-        message: "Your profile get deleted successfully",
-      });
-  }
-);
+//     res.status(200).json({
+//       success: true,
+//       message: "User deleted successfully",
+//     });
+//   }
+// );
+
+// export const deleteProfileController = catchAsyncError(
+//   async (req, res, next) => {
+//     const id = req.id;
+//     const user = await User.findById(id);
+//     if (!user) return next(new ErrorHandler("User not found", 404));
+
+//     await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+//     //cancel subscription
+//     await user.deleteOne();
+//     res
+//       .status(200)
+//       .cookie("token", null, {
+//         expires: new Date(Date.now()),
+//       })
+//       .json({
+//         success: true,
+//         message: "Your profile get deleted successfully",
+//       });
+//   }
+// );

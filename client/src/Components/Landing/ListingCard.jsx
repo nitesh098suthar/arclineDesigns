@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ListingCard = ({item}) => {
   return (
@@ -21,7 +21,7 @@ const ListingCard = ({item}) => {
             <p className="text-xs">|</p>
             <p className="text-xs">{`${item.noOfBathRooms} Bathrooms`}</p>
             <p className="text-xs">|</p>
-            <p className="text-xs">{`${item.areaInSquareFeet} SquareFT`}</p>
+            <p className="text-xs">{`${item.heightInFeet * item.widthInFeet} SquareFT`}</p>
           </div>
           <div className="flex border-lightGrey border-t-[1px] pt-3 items-center">
             <div className="w-[50px] h-[50px] overflow-hidden rounded-full border-[1px] border-lightGrey">
@@ -34,8 +34,8 @@ const ListingCard = ({item}) => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div> 
+  )
 }
 
-export default ListingCard;
+export default ListingCard
