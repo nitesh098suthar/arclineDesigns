@@ -1,12 +1,13 @@
-import React from 'react'
+import React from "react";
 // import { popularListing } from './popularListing.js';
-import { allListings } from '../Layout/allListings.js';
-import ListingCard from './ListingCard.jsx';
+import { allListings } from "../Layout/allListings.js";
+import ListingCard from "./ListingCard.jsx";
+import { Link } from "react-router-dom";
 
 const PopularListing = () => {
-  const popularListing = allListings.filter((item)=>{
-    return item.popular === true
-  })
+  const popularListing = allListings.filter((item) => {
+    return item.popular === true;
+  });
   return (
     <div className="my-12 px-14 mobile:px-2">
       <div className="flex justify-center items-center flex-wrap">
@@ -21,7 +22,11 @@ const PopularListing = () => {
       <div>
         <div className="flex justify-between w-full flex-wrap mobile:justify-center">
           {popularListing.map((item, i) => {
-            return <ListingCard key={i} item={item} />;
+            return (
+              <Link key={i} to={`/design/${item.id}`}>
+                <ListingCard key={i} item={item} />;
+              </Link>
+            );
           })}
         </div>
       </div>
@@ -32,6 +37,6 @@ const PopularListing = () => {
       </div>
     </div>
   );
-}
+};
 
-export default PopularListing
+export default PopularListing;

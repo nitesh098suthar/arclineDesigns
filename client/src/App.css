@@ -85,13 +85,13 @@
 }
 
 .slick-slider {
-  /* border: 2px solid pink; */
+  border: 2px solid pink;
   left: 72px;
   width: 80vw;
 }
 @media (max-width: 768px) {
   .slick-slider {
-    left: 34px;
+    left: -27px;
     width: 320px;
   }
 }

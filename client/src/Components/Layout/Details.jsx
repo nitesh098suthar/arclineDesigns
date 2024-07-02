@@ -21,7 +21,7 @@ const Details = () => {
     };
 
   return (
-    <div className="">
+    <div className="px-14 py-10">
       <div className="flex justify-center items-center ">
         <div className=" flex items-center flex-col mb-8">
           <h1 className="text-3xl font-semibold">Testimonial</h1>
@@ -31,23 +31,39 @@ const Details = () => {
           </div>
         </div>
       </div>
-      <div className="pl-[5%]">
-        <Slider {...settings} className="">
+      <div className="">
+        <Slider {...settings} className=" mb-10">
           {allListings[0].allImages.map((item, i) => (
             <div
               key={i}
-              className=" bg-red-500 p-1 w-[400px] h-[225px]"
+              className=" bg-lightGrey rounded-xl p-1 w-[400px] h-[225px] "
             >
-              <img src={item} alt="" className='object-cover h-full w-full'/>
+              <img src={item} alt="" className='object-cover h-full w-full rounded-lg ratio'/>
             </div>
           ))}
         </Slider>
       </div>
-       <div className="pl-[5%] mt-[15%]">
-        <h1>{allListings[0].designTitle}</h1>
-        <h1>{allListings[0].architectName}</h1>
-        <h1>{allListings[0].location}</h1>
-        <h1>{allListings[0].}</h1>
+       <div className="capitalize" >
+        <div className='flex items-baseline gap-4'>
+          <h1 className='text-2xl text-primary mb-2 capitalize'>{`${allListings[0].heightInFeet}x${allListings[0].widthInFeet}`}</h1> <h1 className='text-darkGrey'>{allListings[0].category}</h1> 
+        </div>
+        <h1 className='text-2xl text-primary mb-2 capitalize'>{allListings[0].designTitle}</h1>
+        <p className='text-sm text-darkGrey border-b-[1px] pb-4 text-justify'>{allListings[0].designDes}</p>
+        <div className='flex py-4 gap-4 border-b-[1px] pb-4 mb-4 mobile:flex-col'>
+          <h1>{`${allListings[0].noOfBedRooms} Bedrooms`}</h1>
+          <h1 className='mobile:hidden mobile:text-center '>|</h1>
+          <h1>{`${allListings[0].noOfBathRooms} Bathrooms`}</h1>
+          <h1 className='mobile:hidden mobile:text-center '>|</h1>
+          <h1>{`${allListings[0].areaInSquareFeet} Squarefeet`}</h1>
+        </div>
+          <div className='flex'>
+          <h1 className=''>Location: </h1>
+          <h1 className='pl-1 text-darkGrey'>{allListings[0].location}</h1>
+          </div>
+          <div className='flex'>
+          <h1 className=''>{`${allListings[0].profession} Name: `}</h1>
+          <h1 className='pl-1 text-darkGrey'>{`${allListings[0].architectName}`}</h1>
+          </div>
        </div>
     </div>
   );

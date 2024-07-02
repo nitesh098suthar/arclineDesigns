@@ -1,31 +1,12 @@
 import React from "react";
-
-const locationWise = [
-  {
-    locationImage: "images/house.jpg",
-    title: "jaipur",
-  },
-  {
-    locationImage: "images/house.jpg",
-    title: "jaipur",
-  },
-  {
-    locationImage: "images/house.jpg",
-    title: "jaipur",
-  },
-  {
-    locationImage: "images/house.jpg",
-    title: "jaipur",
-  },
-  {
-    locationImage: "images/house.jpg",
-    title: "jaipur",
-  },
-  {
-    locationImage: "images/house.jpg",
-    title: "jaipur",
-  },
-];
+import { allListings } from "../Layout/allListings.js";
+import firstImage from "/images/firstImage.jpg";
+import secondImage from "/images/secondImage.jpg";
+import thirdImage from "/images/thirdImage.jpg";
+import fourthImage from "/images/fourthImage.jpg";
+import fifthImage from "/images/fifthImage.jpg";
+import sixthImage from "/images/sixthImage.jpg";
+import { Link } from "react-router-dom";
 
 const FeatureLocation = () => {
   return (
@@ -40,47 +21,70 @@ const FeatureLocation = () => {
         </div>
       </div>
       <div className="flex justify-center h-[320px] px-14 flex-wrap mobile:px-2">
-        <div className="relative w-[300px] h-full rounded-lg overflow-hidden mobile:mb-7 mobile:w-[300px] mobile:h-[200px] hover:scale-105 transition-transform hover:shadow-lg">
-          <img
-            src={locationWise[0].locationImage}
-            alt=""
-            className="locationCard"
-          />
+        <Link to={"/location/jaipur"} className=" cursor-pointer relative w-[300px] h-full rounded-lg overflow-hidden mobile:mb-7 mobile:w-[300px] mobile:h-[200px] hover:scale-105 transition-transform hover:shadow-lg">
+          <img src={firstImage} alt="" className="locationCard" />
           <p className="absolute left-0 bottom-0 text-white z-10 py-4 pl-5 capitalize">
-            {locationWise[0].title}
+            Jaipur
           </p>
           <div className="gradien"></div>
-        </div>
+        </Link>
+
         <div className="flex flex-wrap justify-evenly w-[480px] ">
-          {locationWise.slice(1, 5).map((item, i) => {
-            return (
-              <div
-                key={i}
-                className="relative w-[200px] h-[147px] rounded-lg overflow-hidden top-0 left-0 mb-7  mobile:w-[300px] mobile:h-[200px] hover:scale-105 transition-transform hover:shadow-lg"
-              >
-                <img
-                  src={item.locationImage}
-                  alt=""
-                  className="locationCard hover:scale-120"
-                />
-                <div className="overlay">
-                  <p className="text-white capitalize">{item.title}</p>
-                </div>
-              </div>
-            );
-          })}
+          
+          <Link to={"/location/pali"} className="relative w-[200px] h-[147px] rounded-lg overflow-hidden top-0 left-0 mb-7  mobile:w-[300px] mobile:h-[200px] hover:scale-105 transition-transform hover:shadow-lg">
+            <img
+              src={secondImage}
+              alt=""
+              className="locationCard hover:scale-120"
+            />
+            <div className="overlay">
+              <p className="text-white capitalize">Pali</p>
+            </div>
+          </Link>
+          <Link to={"/location/sirohi"} className="relative w-[200px] h-[147px] rounded-lg overflow-hidden top-0 left-0 mb-7  mobile:w-[300px] mobile:h-[200px] hover:scale-105 transition-transform hover:shadow-lg">
+            <img
+              src={thirdImage}
+              alt=""
+              className="locationCard hover:scale-120"
+            />
+            <div className="overlay">
+              <p className="text-white capitalize">Sirohi</p>
+            </div>
+          </Link>
+          <Link to={"/location/barmer"} className="relative w-[200px] h-[147px] rounded-lg overflow-hidden top-0 left-0 mb-7  mobile:w-[300px] mobile:h-[200px] hover:scale-105 transition-transform hover:shadow-lg">
+            <img
+              src={thirdImage}
+              alt=""
+              className="locationCard hover:scale-120"
+            />
+            <div className="overlay">
+              <p className="text-white capitalize">Barmer</p>
+            </div>
+          </Link>
+          <Link to={"/location/ahmedabad"} className="relative w-[200px] h-[147px] rounded-lg overflow-hidden top-0 left-0 mb-7  mobile:w-[300px] mobile:h-[200px] hover:scale-105 transition-transform hover:shadow-lg">
+            <img
+              src={fourthImage}
+              alt=""
+              className="locationCard hover:scale-120"
+            />
+            <div className="overlay">
+              <p className="text-white capitalize">Ahmedabad</p>
+            </div>
+          </Link>
         </div>
-        <div className="relative w-[300px] h-full rounded-lg overflow-hidden  mobile:w-[300px] mobile:h-[200px] hover:scale-105 transition-transform hover:shadow-lg">
+
+        <Link to={"/location/jalore"} className="relative w-[300px] h-full rounded-lg overflow-hidden  mobile:w-[300px] mobile:h-[200px] hover:scale-105 transition-transform hover:shadow-lg">
           <img
-            src={locationWise[5].locationImage}
+            src={fifthImage}
             alt=""
             className="locationCard"
           />
           <p className="absolute left-0 bottom-0 text-white z-10 py-4 pl-5 capitalize">
-            {locationWise[5].title}
+            Jalore
           </p>
           <div className="gradien"></div>
-        </div>
+        </Link>
+
       </div>
     </div>
   );

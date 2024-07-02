@@ -12,6 +12,7 @@ import Policy from './Components/Layout/Policy.jsx';
 import Help from './Components/Layout/Help.jsx';
 import CategoryPage from './Components/Layout/CategoryPage.jsx';
 import Details from './Components/Layout/Details.jsx';
+import LocationCategory from './Components/Layout/LocationCategory.jsx';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
       <Route path="/help" element={<Help />} />
       <Route path="/category/:category" element={<CategoryPage />} />
       <Route path="/design/:id" element={<Details />} />
+      <Route path="/location/:loc" element={<LocationCategory />} />
     </Routes>
     <Footer />
   </Router>

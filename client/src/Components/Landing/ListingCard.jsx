@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ListingCard = ({item}) => {
   return (
@@ -37,4 +38,4 @@ const ListingCard = ({item}) => {
   );
 }
 
-export default ListingCard
+export default ListingCard;
