@@ -152,4 +152,9 @@
   transform: translateX(-100%);
 }
 
-/* -------------aspect ratio------------- */
+
+/* ================================Sign Up================================ */
+
+.imageInput > input[type="file"] {
+  display: none;
+}
