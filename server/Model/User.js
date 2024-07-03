@@ -25,17 +25,7 @@ const userSchema = new mongoose.Schema({
     enum: ["admin", "user"],
     default: "user",
   },
-  subscription: {
-    subscriptions_id: {
-      type: String,
-      default: "undefined",
-    },
-    status: {
-      type: String,
-      default: "undefined",
-      enum: ["undefined", "active", "created"],
-    },
-  },
+
   avatar: {
     public_id: {
       type: String,
@@ -46,16 +36,6 @@ const userSchema = new mongoose.Schema({
       required: true,
     },
   },
-  playlist: [
-    {
-      courseName : String,
-      course: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
-      },
-      poster: String,
-    },
-  ],
 
   createdAt: {
     type: Date,

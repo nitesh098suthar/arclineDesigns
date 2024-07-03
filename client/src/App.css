@@ -17,7 +17,7 @@
   height: 100vh;
 }
 
-/* ---------------Gradient for location area------------------ */
+/* --------------- Gradient for location area ------------------ */
 
 .gradien {
   background: linear-gradient(
@@ -62,7 +62,7 @@
   margin: 0; /* Remove any default margin from the paragraph */
 }
 
-/* ================================Testimonials React Slick================================ */
+/* ================================ Testimonials React Slick ================================ */
 
 .mainTestimonialsSliderWrapper::-webkit-scrollbar {
   width: 0;
@@ -105,7 +105,7 @@
   }
 }
 
-/* ===================gridingSystem Featured Location================== */
+/* =================== Griding System Featured Location ================== */
 
 .gridSystemOuter {
   display: grid;

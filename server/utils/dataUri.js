@@ -5,7 +5,6 @@ import path from "path";
 const getDataUri = (file) => {
   const parser = new DataUriParser();
   const extName = path.extname(file.originalname).toString(); // Note the change here
-  // console.log(extName);
   return parser.format(extName, file.buffer);
 };
 
