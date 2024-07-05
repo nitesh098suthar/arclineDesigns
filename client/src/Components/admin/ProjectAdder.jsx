@@ -1,11 +1,10 @@
 import { useState } from "react";
-// import SideBar from "./SideBar";
-// import Loader from "../layout/Loader";
-// import { useNavigate } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
-// import { createDesignAction, getAllDesignsAction } from "../../redux/actions/designActions";
+import { useDispatch } from "react-redux";
+import { createDesignAction } from "../../redux/actions/designActions";
 
 const ProjectAdder = () => {
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState({
     designTitle: "",
     location: "",
@@ -20,15 +19,12 @@ const ProjectAdder = () => {
     designDes: "",
   });
 
+  const [architectImage, setArchitectImage] = useState("");
   const [houseImage, setHouseImage] = useState("");
   const [allImages, setAllImages] = useState([]);
-  const [architectImage, setArchitectImage] = useState("");
   const [houseImagePreview, setHouseImagePreview] = useState("");
   const [allImagesPreview, setAllImagesPreview] = useState([]);
   const [architectImagePreview, setArchitectImagePreview] = useState("");
-
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   const categories = [
     "Residential",
@@ -42,6 +38,7 @@ const ProjectAdder = () => {
   const inputHandler = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
+    console.log(input)
   };
 
   const handleImage = (e, setImage, setPreview) => {
@@ -63,17 +60,25 @@ const ProjectAdder = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    console.log("project is adding .....")
     const myForm = new FormData();
     Object.keys(input).forEach((key) => myForm.append(key, input[key]));
     myForm.append("houseImage", houseImage);
     myForm.append("architectImage", architectImage);
+    myForm.append("allImages", allImages)
     allImages.forEach((image, index) =>
       myForm.append(`allImages[${index}]`, image)
-    );
-
-    // await dispatch(createDesignAction(myForm));
-    // await dispatch(getAllDesignsAction());
-    // navigate("/admin/admindesigns");
+  );
+  console.log("myForm", myForm)
+  console.log("allImages", allImages)
+  console.log("project got details.. .....")
+  try {
+    await dispatch(createDesignAction(myForm));
+  } catch (error) {
+    console.log(error)
+  }
+  console.log("project got added successfully.. .....")
   };
 
   // const { loading } = useSelector((state) => state.globalReducer);

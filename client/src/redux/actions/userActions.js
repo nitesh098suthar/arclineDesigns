@@ -18,6 +18,7 @@ export const login = (email, password) => async (dispatch) => {
   try {
     dispatch(loginRequest());
     const { data } = await instance.post("/login", { email, password });
+    console.log("login data" , data)
     dispatch(loginSuccess(data));
   } catch (error) {
     dispatch(loginFail(error?.response?.data?.message));
@@ -44,14 +45,16 @@ export const logOut = () => async (dispatch) => {
   }
 };
 
-export const register = (formdata) => async (dispatch) => {
+export const register = (myForm) => async (dispatch) => {
   try {
     dispatch(registerRequest());
-    const { data } = await instance.post("/register", formdata, {
+    const { data } = await instance.post("/register", myForm, {
       headers: { "Content-Type": "multipart/form-data" },
     });
+    console.log("register payload:", data);
     dispatch(registerSuccess(data));
   } catch (error) {
+    console.error("Registration error:", error);
     dispatch(registerFail(error?.response?.data?.message));
   }
 };

@@ -9,6 +9,7 @@ import seventhImage from "/images/seventhImage.jpg";
 import eighthImage from "/images/eighthImage.jpg";
 import avatar from "/images/avatar.png";
 
+
 export const allListings = [
   {id:1,
     designTitle: "Luxury Apartment",
@@ -331,3 +332,4 @@ export const allListings = [
       "Quis incididunt ipsum ipsum aliquip eu ea nostrud eiusmod deserunt. Esse sint deserunt culpa occaecat proident proident pariatur sunt aliquip est commodo nostrud. Reprehenderit esse ut quis magna pariatur. Est adipisicing deserunt aliqua ad voluptate aute voluptate est nulla irure. Lorem ex est sunt adipisicing mollit veniam nostrud nulla. Eiusmod consequat laboris officia ullamco velit. Dolore irure excepteur ex labore sint ea voluptate mollit amet.",
   },
 ];
+

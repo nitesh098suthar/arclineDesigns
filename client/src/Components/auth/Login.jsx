@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import { login } from "../../redux/actions/userActions.js";
-// import { useDispatch } from "react-redux";
+import { login } from "../../redux/actions/userActions.js";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
 
-  // const dispatch = useDispatch();
   const inputHandler = (e) => {
-    // setInput({ ...input, [e.target.name]: e.target.value });
+    setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // dispatch(login(input.email, input.password));
+    console.log("login started ")
+    dispatch(login(input.email, input.password));
+    console.log("login ended ")
   };
 
   return (

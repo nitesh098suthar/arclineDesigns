@@ -21,11 +21,14 @@ import ForgetPassword from "./Components/auth/ForgetPassword.jsx";
 import ResetPassword from "./Components/auth/ResetPassword.jsx";
 import {ProtectedRoute} from "protected-route-react"
 import NotFound from "./Components/Not Found/NotFound.jsx";
+import { Provider } from "react-redux";
+import store from "./redux/store.js";
 const App = () => {
   const isAuthenticated = true
   return (
-    <>
-      <Router>
+    
+    <Provider store={store}>
+        <Router>
         <Header />
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -55,7 +58,8 @@ const App = () => {
         </Routes>
         <Footer />
       </Router>
-    </>
+    
+    </Provider>
   );
 };
 

@@ -1,22 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const courseSlice = createSlice({
-  name: "courseSlice",
+const designSlice = createSlice({
+  name: "designSlice",
   initialState: {
-    courses: null,
+    allListings: null,
     lectures: [],
   },
   reducers: {
-    //removed: allCoursesRequest,allCoursesFail, getCourseLecturesRequest,getCourseLecturesFail,addToPlaylistRequest,addToPlaylistSuccess,addToPlaylistFail
-    allCoursesSuccess: (state, action) => {
-      state.courses = action.payload.allCourses;
-    },
-    getCourseLecturesSuccess: (state, action) => {
-      state.lectures = action.payload.lectures;
+    allListingsSuccess: (state, action) => {
+      state.allListings = action.payload.allListings;
     },
   },
 });
 
-export const { allCoursesSuccess, getCourseLecturesSuccess } =
-  courseSlice.actions;
-export default courseSlice.reducer;
+export const { allListingsSuccess } =
+  designSlice.actions;
+export default designSlice.reducer;
