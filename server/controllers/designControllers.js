@@ -182,13 +182,25 @@ export const getAllDesigns = catchAsyncError(async (req, res, next) => {
   });
 });
 
+export const getOneDesign = catchAsyncError(async (req, res, next) => {
+  const {id} = req.params
+  const oneDesign = await Design.findById(id);
+
+  if(!oneDesign) next(new ErrorHandler("THere is no design with this id", 404))
+
+  return res.status(201).json({
+    success: "true",
+    oneDesign,
+  });
+});
+
 export const updateDesign = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
-  if (!id) return next(new ErrorHandler("There is no id in url"));
+  if (!id) return next(new ErrorHandler("There is no id in url", 404));
 
   const existingDesign = await Design.findById(id);
   if (!existingDesign)
-    return next(new ErrorHandler("There is no design with this id"));
+    return next(new ErrorHandler("There is no design with this id", 404));
 
   const {
     designTitle,
@@ -319,3 +331,5 @@ export const deleteDesign = catchAsyncError(async (req, res, next) => {
     message: "Design deleted successfully",
   });
 });
+
+

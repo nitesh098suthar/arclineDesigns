@@ -4,6 +4,7 @@ import {
   createDesign,
   updateDesign,
   deleteDesign,
+  getOneDesign
 } from "../controllers/designControllers.js";
 
 import uploadDesignFiles from "../middlewares/multer.js";
@@ -18,6 +19,7 @@ const uploadFields = upload.fields([
 Router.route("/design").post(uploadFields, createDesign).get(getAllDesigns);
 Router.route("/design/:id")
   .put(uploadDesignFiles, updateDesign)
-  .delete(deleteDesign);
+  .delete(deleteDesign)
+  .get(getOneDesign);
 
 export default Router;
