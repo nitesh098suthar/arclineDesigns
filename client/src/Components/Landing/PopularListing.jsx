@@ -1,23 +1,26 @@
-import React, { useEffect } from "react"
-// import { allListings } from "../Layout/allListings.js"
-import ListingCard from "./ListingCard.jsx"
-import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { getAllDesignsAction } from "../../redux/actions/designActions.js"
+
+
+import React, { useEffect } from "react";
+import ListingCard from "./ListingCard.jsx";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllDesignsAction } from "../../redux/actions/designActions.js";
 
 const PopularListing = () => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllDesignsAction());
-  }, []);
+  }, [dispatch]);
 
   const { allListings } = useSelector((state) => state.designReducer);
 
-  const popularListing = allListings.filter((item) => {
-    return item.popular === true
-  })
+  // Ensure allListings is defined and not null
+  const popularListing = allListings
+    ? allListings.filter((item) => {
+        return item.popular === "true";
+      })
+    : [];
 
   return (
     <div className="my-12 px-14 mobile:px-2">
@@ -32,13 +35,11 @@ const PopularListing = () => {
       </div>
       <div>
         <div className="flex justify-between w-full flex-wrap mobile:justify-center">
-          {popularListing.map((item, i) => {
-            return (
-              <Link key={i} to={`/design/${item.id}`}>
-                <ListingCard key={i} item={item} />
-              </Link>
-            )
-          })}
+          {popularListing.map((item, i) => (
+            <Link key={i} to={`/design/${item._id}`}>
+              <ListingCard item={item} />
+            </Link>
+          ))}
         </div>
       </div>
       <div className="flex justify-center">
@@ -47,7 +48,7 @@ const PopularListing = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PopularListing
+export default PopularListing;

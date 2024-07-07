@@ -14,17 +14,3 @@ export const contactUsAction = (name, email, message) => async (dispatch) => {
     dispatch(rej(error?.response?.data?.message));
   }
 };
-
-export const requestUsAction = (name, email, course) => async (dispatch) => {
-  try {
-    dispatch(req());
-    const { data } = await instance.post("/requestcourse", {
-      name,
-      email,
-      course,
-    });
-    dispatch(res(data));
-  } catch (error) {
-    dispatch(rej(error?.response?.data?.message));
-  }
-};

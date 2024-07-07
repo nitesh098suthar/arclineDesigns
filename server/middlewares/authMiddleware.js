@@ -30,15 +30,3 @@ export const authorizedAdmin = async(req, res, next) =>{
 }
 
 
-export const authorizedSubscribers = async(req, res, next) =>{
-
-    const userId = req.id
-    const currentUser = await User.findById(userId)
-    console.log(currentUser.role, currentUser.subscription.status )
-    if(currentUser.role !== "admin" && currentUser.subscription.status !== "active")
-        return next(new ErrorHandler("Only authorized subscribers can access this resource | Admin not allowed to access this resource", 403))
-
-    next();
-
-}
-

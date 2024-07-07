@@ -1,6 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { contactUsAction } from '../../redux/actions/otherAction';
 
 const ContactUs = () => {
+
+  const [input, setInput] = useState({
+
+    name : "",
+    email : "",
+    message : ""
+   
+  });
+
+  const dispatch = useDispatch()  
+  const inputHandler = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+    console.log(input);
+  };
+
+  const submitHandler = async() => {
+    await dispatch(contactUsAction(input.name, input.email, input.message))
+    alert("message has sent")
+    setInput({
+      name : "",
+      email : "",
+      message : ""
+    })
+  }
+
+
+
   return (
       <div className="min-h-[10vh] p-10 w-[600px] mx-auto mobile:w-[380px] xxs:w-[300px]">
         <div className="flex justify-center items-center ">
@@ -18,6 +47,9 @@ const ContactUs = () => {
           <div className="w-full  mb-3">
             <p>Name</p>
             <input
+            onChange={inputHandler}
+            name = "name"
+            value = {input.name}
               type="text"
               placeholder="Enter your name"
               className="bg-whtie p-2 outline-none rounded-md w-full"
@@ -26,6 +58,10 @@ const ContactUs = () => {
           <div className="w-full  mb-3">
             <p>Email</p>
             <input
+            onChange={inputHandler}
+            name = "email"
+            value = {input.email}
+
               type="text"
               placeholder="Enter your email"
               className="bg-whtie p-2 outline-none rounded-md w-full"
@@ -34,7 +70,9 @@ const ContactUs = () => {
           <div className="w-full  mb-3">
             <p>Message</p>
             <textarea
-              name=""
+            onChange={inputHandler}
+            name = "message"
+            value = {input.message}
               placeholder="Your message"
               id=""
               rows={4}
@@ -42,7 +80,7 @@ const ContactUs = () => {
             ></textarea>
           </div>
           <div>
-            <button className="text-white bg-primary p-2 w-full outline-none rounded-md">
+            <button onClick={submitHandler} className="text-white bg-primary p-2 w-full outline-none rounded-md">
               Send Message
             </button>
           </div>

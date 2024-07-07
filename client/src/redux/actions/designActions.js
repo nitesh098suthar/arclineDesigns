@@ -19,7 +19,9 @@ export const getAllDesignsAction = () => async (dispatch) => {
 
 export const getOneDesignAction = (id) => async (dispatch) => {
   try {
+    console.log("action is called")
     dispatch(req());
+    console.log("id in action", id)
     const { data } = await instance.get(`/design/${id}`);
     dispatch(res(data));
     dispatch(getOneDesignSuccess(data));

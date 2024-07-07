@@ -1,20 +1,29 @@
-import React, { useEffect } from "react"
-// import { oneDesing } from "./oneDesing.js"
-import Slider from "react-slick"
+import React, { useEffect } from "react";
+import Slider from "react-slick";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDesignsAction } from "../../redux/actions/designActions.js";
+import { getOneDesignAction } from "../../redux/actions/designActions.js";
 import { useParams } from "react-router-dom";
 
-
 const Details = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
-   const dispatch = useDispatch();
-   const {id} = useParams();
-   useEffect(() => {
-     dispatch(getAllDesignsAction(id));
-   }, []);
+  useEffect(() => {
+    if (id) {
+      dispatch(getOneDesignAction(id));
+    }
+  }, [dispatch, id]);
 
-   const { oneDesing } = useSelector((state) => state.designReducer);
+  const oneDesignData = useSelector(
+    (state) => state.designReducer.oneDesignData
+  );
+  console.log("oneDesignData:", oneDesignData);
+
+  if (!oneDesignData) {
+    return <div>Loading...</div>;
+  }
+
+  const { oneDesign } = oneDesignData;
 
   var settings = {
     dots: true,
@@ -24,13 +33,17 @@ const Details = () => {
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 768, // when the screen size is 430px or less
+        breakpoint: 768, // when the screen size is 768px or less
         settings: {
           slidesToShow: 1, // show only 1 slide
           slidesToScroll: 1,
         },
       },
     ],
+  };
+
+  if (!oneDesign) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -46,13 +59,13 @@ const Details = () => {
       </div>
       <div className="">
         <Slider {...settings} className=" mb-10">
-          {oneDesing.allImages.map((item, i) => (
+          {oneDesign?.allImages?.map((item, i) => (
             <div
               key={i}
               className=" bg-lightGrey rounded-xl p-1 w-[400px] h-[225px] "
             >
               <img
-                src={item}
+                src={item.secure_url}
                 alt=""
                 className="object-cover h-full w-full rounded-lg ratio"
               />
@@ -62,33 +75,33 @@ const Details = () => {
       </div>
       <div className="capitalize">
         <div className="flex items-baseline gap-4">
-          <h1 className="text-2xl text-primary mb-2 capitalize">{`${oneDesing.heightInFeet}x${oneDesing.widthInFeet}`}</h1>{" "}
-          <h1 className="text-darkGrey">{oneDesing.category}</h1>
+          <h1 className="text-2xl text-primary mb-2 capitalize">{`${oneDesign.heightInFeet}x${oneDesign.widthInFeet}`}</h1>{" "}
+          <h1 className="text-darkGrey">{oneDesign.category}</h1>
         </div>
         <h1 className="text-2xl text-primary mb-2 capitalize">
-          {oneDesing.designTitle}
+          {oneDesign.designTitle}
         </h1>
         <p className="text-sm text-darkGrey border-b-[1px] pb-4 text-justify">
-          {oneDesing.designDes}
+          {oneDesign.designDes}
         </p>
         <div className="flex py-4 gap-4 border-b-[1px] pb-4 mb-4 mobile:flex-col">
-          <h1>{`${oneDesing.noOfBedRooms} Bedrooms`}</h1>
+          <h1>{`${oneDesign.noOfBedRooms} Bedrooms`}</h1>
           <h1 className="mobile:hidden mobile:text-center ">|</h1>
-          <h1>{`${oneDesing.noOfBathRooms} Bathrooms`}</h1>
+          <h1>{`${oneDesign.noOfBathRooms} Bathrooms`}</h1>
           <h1 className="mobile:hidden mobile:text-center ">|</h1>
-          <h1>{`${oneDesing.areaInSquareFeet} Squarefeet`}</h1>
+          <h1>{`${oneDesign.areaInSquareFeet} Squarefeet`}</h1>
         </div>
         <div className="flex">
           <h1 className="">Location: </h1>
-          <h1 className="pl-1 text-darkGrey">{oneDesing.location}</h1>
+          <h1 className="pl-1 text-darkGrey">{oneDesign.location}</h1>
         </div>
         <div className="flex">
-          <h1 className="">{`${oneDesing.profession} Name: `}</h1>
-          <h1 className="pl-1 text-darkGrey">{`${oneDesing.architectName}`}</h1>
+          <h1 className="">{`${oneDesign.profession} Name: `}</h1>
+          <h1 className="pl-1 text-darkGrey">{`${oneDesign.architectName}`}</h1>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Details
+export default Details;

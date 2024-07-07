@@ -4,14 +4,14 @@ const designSlice = createSlice({
   name: "designSlice",
   initialState: {
     allListings: null,
-    oneDesign : null
+    oneDesignData : null
   },
   reducers: {
     allListingsSuccess: (state, action) => {
       state.allListings = action.payload.allListings;
     },
     getOneDesignSuccess: (state, action) => {
-      state.oneDesign = action.payload;
+      state.oneDesignData = action.payload;
     },
   },
 });

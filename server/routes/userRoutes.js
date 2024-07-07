@@ -42,5 +42,4 @@ Router.route("/admin/getallusers").get(
   getAllUsersController
 );
 
-
 export default Router;
