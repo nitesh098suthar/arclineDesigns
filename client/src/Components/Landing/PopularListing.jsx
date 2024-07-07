@@ -1,13 +1,24 @@
-import React from "react"
-// import { popularListing } from './popularListing.js'
-import { allListings } from "../Layout/allListings.js"
+import React, { useEffect } from "react"
+// import { allListings } from "../Layout/allListings.js"
 import ListingCard from "./ListingCard.jsx"
 import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { getAllDesignsAction } from "../../redux/actions/designActions.js"
 
 const PopularListing = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllDesignsAction());
+  }, []);
+
+  const { allListings } = useSelector((state) => state.designReducer);
+
   const popularListing = allListings.filter((item) => {
     return item.popular === true
   })
+
   return (
     <div className="my-12 px-14 mobile:px-2">
       <div className="flex justify-center items-center flex-wrap">

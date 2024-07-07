@@ -1,10 +1,7 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createDesignAction } from "../../redux/actions/designActions";
+import React, { useState } from "react";
+import axios from "axios";
 
-const ProjectAdder = () => {
-  const dispatch = useDispatch();
-
+function App() {
   const [input, setInput] = useState({
     designTitle: "",
     location: "",
@@ -15,326 +12,208 @@ const ProjectAdder = () => {
     architectName: "",
     profession: "",
     popular: "false",
-    category: "",
+    category: "Residential",
     designDes: "",
   });
-
-  const [architectImage, setArchitectImage] = useState("");
-  const [houseImage, setHouseImage] = useState("");
+  const [architectImage, setArchitectImage] = useState(null);
+  const [houseImage, setHouseImage] = useState(null);
   const [allImages, setAllImages] = useState([]);
-  const [houseImagePreview, setHouseImagePreview] = useState("");
-  const [allImagesPreview, setAllImagesPreview] = useState([]);
-  const [architectImagePreview, setArchitectImagePreview] = useState("");
-
-  const categories = [
-    "Residential",
-    "Commercial Hospitality",
-    "Exterior",
-    "Interior",
-    "Temples",
-    "Other",
-  ];
 
   const inputHandler = (e) => {
-    const { name, value } = e.target;
-    setInput({ ...input, [name]: value });
-    console.log(input)
+    setInput({ ...input, [e.target.name]: e.target.value });
+    console.log(input);
   };
 
-  const handleImage = (e, setImage, setPreview) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreview(reader.result);
-      setImage(file);
-    };
+  const numberInputHandler = (e) => {
+    const value = e.target.value.replace(/\D/, "");
+    setInput({ ...input, [e.target.name]: value });
   };
 
-  const handleMultipleImages = (e) => {
-    const files = Array.from(e.target.files);
-    const previews = files.map((file) => URL.createObjectURL(file));
-    setAllImages(files);
-    setAllImagesPreview(previews);
+  const handleHouseImageChange = (e) => {
+    setHouseImage(e.target.files[0]);
+  };
+  const handleArchitectImageChange = (e) => {
+    setArchitectImage(e.target.files[0]);
   };
 
-  const submitHandler = async (e) => {
+  const handleAllImagesChange = (e) => {
+    setAllImages(e.target.files);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("project is adding .....")
-    const myForm = new FormData();
-    Object.keys(input).forEach((key) => myForm.append(key, input[key]));
-    myForm.append("houseImage", houseImage);
-    myForm.append("architectImage", architectImage);
-    myForm.append("allImages", allImages)
-    allImages.forEach((image, index) =>
-      myForm.append(`allImages[${index}]`, image)
-  );
-  console.log("myForm", myForm)
-  console.log("allImages", allImages)
-  console.log("project got details.. .....")
-  try {
-    await dispatch(createDesignAction(myForm));
-  } catch (error) {
-    console.log(error)
-  }
-  console.log("project got added successfully.. .....")
+    const formData = new FormData();
+    formData.append("designTitle", input.designTitle);
+    formData.append("location", input.location);
+    formData.append("heightInFeet", input.heightInFeet);
+    formData.append("widthInFeet", input.widthInFeet);
+    formData.append("noOfBathRooms", input.noOfBathRooms);
+    formData.append("noOfBedRooms", input.noOfBedRooms);
+    formData.append("architectName", input.architectName);
+    formData.append("profession", input.profession);
+    formData.append("popular", input.popular);
+    formData.append("category", input.category);
+    formData.append("designDes", input.designDes);
+
+    if (architectImage) {
+      formData.append("architectImage", architectImage);
+    }
+
+    if (houseImage) {
+      formData.append("houseImage", houseImage);
+    }
+
+    for (const image of allImages) {
+      formData.append("allImages", image);
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:9000/api/v1/design",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      alert(response.data.message);
+    } catch (error) {
+      console.error(error);
+      alert("Error uploading images");
+    }
   };
 
-  // const { loading } = useSelector((state) => state.globalReducer);
-
-  return false ? (
-    // <Loader />
-    <></>
-  ) : (
-    <>
-      <div className="bg-[#1D232A] h-full pb-20">
-        <h1 className="text-center text-5xl text-white py-14 font-bold">
-          Create New Design
-        </h1>
-        <div className="mb-10">{/* <SideBar /> */}</div>
-        <div className="grid place-content-center">
-          <form
-            onSubmit={submitHandler}
-            className="p-8 bg-cardColor rounded-xl w-[700px] space-y-6"
+  return (
+    <div className="App p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
+      <h1 className="text-2xl font-bold text-center">Image Upload</h1>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-2">
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="text"
+            placeholder="Design Title"
+            onChange={inputHandler}
+            value={input.designTitle}
+            name="designTitle"
+          />
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="text"
+            placeholder="Location"
+            onChange={inputHandler}
+            value={input.location}
+            name="location"
+          />
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="text"
+            placeholder="Height in Feet"
+            onChange={numberInputHandler}
+            value={input.heightInFeet}
+            name="heightInFeet"
+          />
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="text"
+            placeholder="Width in Feet"
+            onChange={numberInputHandler}
+            value={input.widthInFeet}
+            name="widthInFeet"
+          />
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="text"
+            placeholder="Number of Bathrooms"
+            onChange={numberInputHandler}
+            value={input.noOfBathRooms}
+            name="noOfBathRooms"
+          />
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="text"
+            placeholder="Number of Bedrooms"
+            onChange={numberInputHandler}
+            value={input.noOfBedRooms}
+            name="noOfBedRooms"
+          />
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="text"
+            placeholder="Architect Name"
+            onChange={inputHandler}
+            value={input.architectName}
+            name="architectName"
+          />
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="text"
+            placeholder="Profession"
+            onChange={inputHandler}
+            value={input.profession}
+            name="profession"
+          />
+          <select
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            onChange={inputHandler}
+            value={input.popular}
+            name="popular"
           >
-            <div className="flex justify-between space-x-4">
-              {[
-                { label: "Design Title", name: "designTitle" },
-                { label: "Location", name: "location" },
-              ].map((field, index) => (
-                <div className="flex-1" key={index}>
-                  <label className="text-dullWhite block w-[100%]">
-                    {field.label}
-                  </label>
-                  <input
-                    type="text"
-                    name={field.name}
-                    value={input[field.name]}
-                    onChange={inputHandler}
-                    className="bg-slate-300 rounded-sm w-full h-[35px] outline-none p-2"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-between space-x-4">
-              {[
-                {
-                  label: "Height (in feet)",
-                  name: "heightInFeet",
-                  type: "number",
-                },
-                {
-                  label: "Width (in feet)",
-                  name: "widthInFeet",
-                  type: "number",
-                },
-              ].map((field, index) => (
-                <div className="flex-1" key={index}>
-                  <label className="text-dullWhite block w-[100%]">
-                    {field.label}
-                  </label>
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    value={input[field.name]}
-                    onChange={inputHandler}
-                    className="bg-slate-300 rounded-sm w-full h-[35px] outline-none p-2"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-between space-x-4">
-              {[
-                {
-                  label: "Number of Bathrooms",
-                  name: "noOfBathRooms",
-                  type: "number",
-                },
-                {
-                  label: "Number of Bedrooms",
-                  name: "noOfBedRooms",
-                  type: "number",
-                },
-              ].map((field, index) => (
-                <div className="flex-1" key={index}>
-                  <label className="text-dullWhite block w-[100%]">
-                    {field.label}
-                  </label>
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    value={input[field.name]}
-                    onChange={inputHandler}
-                    className="bg-slate-300 rounded-sm w-full h-[35px] outline-none p-2"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-between space-x-4">
-              {[
-                { label: "Architect Name", name: "architectName" },
-                { label: "Profession", name: "profession" },
-              ].map((field, index) => (
-                <div className="flex-1" key={index}>
-                  <label className="text-dullWhite block w-[100%]">
-                    {field.label}
-                  </label>
-                  <input
-                    type="text"
-                    name={field.name}
-                    value={input[field.name]}
-                    onChange={inputHandler}
-                    className="bg-slate-300 rounded-sm w-full h-[35px] outline-none p-2"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-between space-x-4">
-              <div className="flex-1">
-                <label className="text-dullWhite block w-[100%]">
-                  Category
-                </label>
-                <select
-                  name="category"
-                  value={input.category}
-                  onChange={inputHandler}
-                  className="w-full h-[35px] bg-slate-300 px-1 text-black border-none rounded-sm"
-                >
-                  {categories.map((cat, i) => (
-                    <option key={i} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex-1">
-                <label className="text-dullWhite block w-[100%]">Popular</label>
-                <select
-                  name="popular"
-                  value={input.popular}
-                  onChange={inputHandler}
-                  className="w-full h-[35px] bg-slate-300 px-1 text-black border-none rounded-sm"
-                >
-                  <option value="false">False</option>
-                  <option value="true">True</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="my-4">
-              <label className="text-dullWhite block w-[100%]">
-                Design Description
-              </label>
-              <textarea
-                name="designDes"
-                value={input.designDes}
-                onChange={inputHandler}
-                className="bg-slate-300 rounded-sm w-full h-[100px] outline-none p-2"
-                rows="4"
-              ></textarea>
-            </div>
-
-            <div className="flex justify-between space-x-4">
-              {[
-                {
-                  label: "House Image",
-                  handler: (e) =>
-                    handleImage(e, setHouseImage, setHouseImagePreview),
-                  preview: houseImagePreview,
-                },
-                {
-                  label: "Architect Image",
-                  handler: (e) =>
-                    handleImage(e, setArchitectImage, setArchitectImagePreview),
-                  preview: architectImagePreview,
-                },
-              ].map((field, index) => (
-                <div className="flex-1" key={index}>
-                  <label className="text-dullWhite block w-[100%] mb-2">
-                    {field.label}
-                  </label>
-                  <div className="relative mb-4">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={field.handler}
-                      className="hidden"
-                      id={`fileInput-${index}`}
-                    />
-                    <label
-                      htmlFor={`fileInput-${index}`}
-                      className="bg-primary text-white px-4 py-2 rounded-sm cursor-pointer w-full text-center block"
-                    >
-                      Select File
-                    </label>
-                    {field.preview && (
-                      <div className="w-full h-32 bg-slate-100 rounded-md overflow-hidden my-4">
-                        <img
-                          src={field.preview}
-                          alt={field.label}
-                          className="w-full h-full"
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="my-4">
-              <label className="text-dullWhite block w-[100%] mb-2">
-                Additional Images
-              </label>
-              <div className="relative mb-4">
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleMultipleImages}
-                  className="hidden"
-                  id="additionalImagesInput"
-                />
-                <label
-                  htmlFor="additionalImagesInput"
-                  className="bg-primary text-white px-4 py-2 rounded-sm cursor-pointer w-full text-center block"
-                >
-                  Select Files
-                </label>
-              </div>
-              <div className="flex flex-wrap gap-2 my-4">
-                {allImagesPreview.map((src, index) => (
-                  <div
-                    key={index}
-                    className="w-24 h-24 bg-slate-100 rounded-md overflow-hidden"
-                  >
-                    <img
-                      src={src}
-                      alt={`Image ${index + 1}`}
-                      className="w-full h-full"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="my-4">
-              <button
-                type="submit"
-                className="text-white bg-primary rounded-sm w-full h-[35px] border-0 outline-none hover:bg-green-700"
-              >
-                Create
-              </button>
-            </div>
-          </form>
+            <option value="false">False</option>
+            <option value="true">True</option>
+          </select>
+          <select
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            onChange={inputHandler}
+            value={input.category}
+            name="category"
+          >
+            <option value="Residential">Residential</option>
+            <option value="Commercial Hospitality">
+              Commercial Hospitality
+            </option>
+            <option value="Exterior">Exterior</option>
+            <option value="Interior">Interior</option>
+            <option value="Temples">Temples</option>
+            <option value="Others">Others</option>
+          </select>
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="text"
+            placeholder="Design Description"
+            onChange={inputHandler}
+            value={input.designDes}
+            name="designDes"
+          />
         </div>
-      </div>
-    </>
+        <div className="space-y-2">
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="file"
+            onChange={handleHouseImageChange}
+          />
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="file"
+            onChange={handleArchitectImageChange}
+          />
+          <input
+            className="w-full border-[1px] border-gray-300 p-2 rounded"
+            type="file"
+            multiple
+            onChange={handleAllImagesChange}
+          />
+        </div>
+        <button
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   );
-};
+}
 
-export default ProjectAdder;
+export default App;

@@ -1,21 +1,22 @@
 import { useEffect } from "react";
-import { allListings } from "../Layout/allListings";
+// import { allListings } from "../Layout/allListings";
 // import SideBar from "./SideBar";
-// import { useDispatch, useSelector } from "react-redux";
-// import {
+import { useDispatch, useSelector } from "react-redux";
+import {
 //   updateDesignAction,
 //   deleteDesignAction,
-//   getAllDesignsAction,
-// } from "../../redux/actions/designActions";
+  getAllDesignsAction,
+} from "../../redux/actions/designActions";
 // import Loader from "../layout/Loader";
 
 const ProjectGetter = () => {
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-    // dispatch(getAllDesignsAction());
-  // }, [dispatch]);
+  const dispatch = useDispatch();
 
-  // const { allListings, loading } = useSelector((state) => state.designReducer);
+  useEffect(() => {
+    dispatch(getAllDesignsAction());
+  },[]);
+
+  const {allListings} = useSelector((state) => state.designReducer);
 
   const updateDesign = async (id) => {
     // await dispatch(updateDesignAction(id));
@@ -62,7 +63,7 @@ const ProjectGetter = () => {
               {allListings &&
                 allListings.map((design, i) => (
                   <tr key={i}>
-                    <td className="p-2 text-center px-6 text-white">{design.id}</td>
+                    <td className="p-2 text-center px-6 text-white">{design? i+1 : null}</td>
                     <td className="p-2 text-center px-6 text-white capitalize">{design.designTitle}</td>
                     <td className="p-2 text-center px-6 text-white">{design.location}</td>
                     <td className="p-2 text-center px-6 text-white">{design.heightInFeet}</td>

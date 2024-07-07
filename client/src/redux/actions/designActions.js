@@ -3,13 +3,14 @@ import { instance } from "../store";
 //   allListingsSuccess
 // } from "../reducers/designReducer";
 import { rej, req, res } from "../reducers/globalReducer";
+import { allListingsSuccess } from "../reducers/designReducer";
 
 export const getAllDesignsAction = () => async (dispatch) => {
   try {
     dispatch(req());
     const { data } = await instance.get(`/design`);
-    console.log("here data is payload", data)
     dispatch(res(data));
+    dispatch(allListingsSuccess(data));
   } catch (error) {
     dispatch(rej(error?.response?.data?.message));
   }

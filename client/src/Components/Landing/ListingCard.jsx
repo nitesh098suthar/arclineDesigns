@@ -6,7 +6,7 @@ const ListingCard = ({item}) => {
     <div className="">
       <div className="border-[1px] border-lightGrey rounded-xl w-[400px] mobile:w-[300px] min-h-[430px] my-2 hover:bg-lightGrey/30 transition-colors">
         <div className="p-2">
-          <img src={item.houseImage} alt="" className="rounded-md" />
+          <img src={item.houseImage.secure_url} alt="" className="rounded-md" />
         </div>
         <div className="p-2">
           <div className="flex gap-2 items-baseline px-2">
@@ -25,7 +25,7 @@ const ListingCard = ({item}) => {
           </div>
           <div className="flex border-lightGrey border-t-[1px] pt-3 items-center">
             <div className="w-[50px] h-[50px] overflow-hidden rounded-full border-[1px] border-lightGrey">
-              <img src={item.architectImage} alt="" />
+              <img src={item.architectImage.secure_url} alt="" />
             </div>
             <div className="pl-4">
               <h3 className="font-medium">{item.architectName}</h3>

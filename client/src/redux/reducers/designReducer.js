@@ -4,7 +4,6 @@ const designSlice = createSlice({
   name: "designSlice",
   initialState: {
     allListings: null,
-    lectures: [],
   },
   reducers: {
     allListingsSuccess: (state, action) => {

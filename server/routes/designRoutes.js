@@ -7,13 +7,17 @@ import {
 } from "../controllers/designControllers.js";
 
 import uploadDesignFiles from "../middlewares/multer.js";
+import upload from "../middlewares/uploadMiddleware.js";
 
 const Router = express.Router();
-
-Router.route("/design")
-  .post(uploadDesignFiles, createDesign)
-  .get(getAllDesigns);
-Router.route("/design/:id").put(uploadDesignFiles,updateDesign).delete(deleteDesign);
+const uploadFields = upload.fields([
+  { name: "houseImage" },
+  { name: "architectImage" },
+  { name: "allImages" },
+]);
+Router.route("/design").post(uploadFields, createDesign).get(getAllDesigns);
+Router.route("/design/:id")
+  .put(uploadDesignFiles, updateDesign)
+  .delete(deleteDesign);
 
 export default Router;
-  

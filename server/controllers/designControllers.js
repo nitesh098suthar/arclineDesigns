@@ -1,78 +1,181 @@
+
+// export const createDesign = catchAsyncError(async (req, res, next) => {
+//   const {
+//     designTitle,
+//     location,
+//     heightInFeet,
+//     widthInFeet,
+//     noOfBathRooms,
+//     noOfBedRooms,
+//     architectName,
+//     profession,
+//     popular,
+//     category,
+//     designDes,
+//   } = req.body;
+
+//   const areaInSquareFeet = heightInFeet * widthInFeet;
+
+//   const architectImageFile = req.files["architectImage"][0];
+//   const houseImageFile = req.files["houseImage"][0];
+//   const allImagesFiles = req.files["allImages"];
+
+//   const architectImageUri = getDataUri(architectImageFile).content;
+//   const houseImageUri = getDataUri(houseImageFile).content;
+//   const allImagesUris = allImagesFiles.map((file) => getDataUri(file).content);
+
+//   const architectImageUpload = await cloudinary.v2.uploader.upload(
+//     architectImageUri
+//   );
+//   const houseImageUpload = await cloudinary.v2.uploader.upload(houseImageUri);
+//   const designElevationUploads = await Promise.all(
+//     allImagesUris.map((image) => cloudinary.v2.uploader.upload(image))
+//   );
+
+//   await Design.create({
+//     designTitle,
+//     location,
+//     heightInFeet,
+//     widthInFeet,
+//     noOfBathRooms,
+//     noOfBedRooms,
+//     architectName,
+//     profession,
+//     popular,
+//     category,
+//     designDes,
+//     areaInSquareFeet,
+//     architectImage: {
+//       public_id: architectImageUpload.public_id,
+//       url: architectImageUpload.secure_url,
+//     },
+//     houseImage: {
+//       public_id: houseImageUpload.public_id,
+//       url: houseImageUpload.secure_url,
+//     },
+//     allImages: designElevationUploads.map((upload) => ({
+//       public_id: upload.public_id,
+//       url: upload.secure_url,
+//     })),
+//   });
+
+//   return res.status(201).json({
+//     success: "true",
+//     message: "Created",
+//   });
+// });
+
 import catchAsyncError from "../middlewares/catchAsyncError.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 import getDataUri from "../utils/dataUri.js";
 import cloudinary from "cloudinary";
 import Design from "../Model/Design.js";
+// import express from "express";
+// import upload from "./uploadMiddleware.js";
 
-export const createDesign = catchAsyncError(async (req, res, next) => {
-  const {
-    designTitle,
-    location,
-    heightInFeet,
-    widthInFeet,
-    noOfBathRooms,
-    noOfBedRooms,
-    architectName,
-    profession,
-    popular,
-    category,
-    designDes,
-  } = req.body;
+// const router = express.Router();
 
-  const areaInSquareFeet = heightInFeet * widthInFeet;
+export const createDesign = catchAsyncError(async (req, res) => {
+  try {
+    const {
+      designTitle,
+      location,
+      heightInFeet,
+      widthInFeet,
+      noOfBathRooms,
+      noOfBedRooms,
+      architectName,
+      profession,
+      popular,
+      category,
+      designDes,
+    } = req.body;
 
-  const architectImageFile = req.files["architectImage"][0];
-  const houseImageFile = req.files["houseImage"][0];
-  const allImagesFiles = req.files["allImages"];
+    const houseImage = req.files.houseImage ? req.files.houseImage[0] : null;
+    const architectImage = req.files.architectImage
+      ? req.files.architectImage[0]
+      : null;
+    const allImages = req.files.allImages || [];
 
-  const architectImageUri = getDataUri(architectImageFile).content;
-  const houseImageUri = getDataUri(houseImageFile).content;
-  const allImagesUris = allImagesFiles.map((file) => getDataUri(file).content);
+    const MAX_FILE_SIZE = 10485760; // 10 MB
 
-  const architectImageUpload = await cloudinary.v2.uploader.upload(
-    architectImageUri
-  );
-  const houseImageUpload = await cloudinary.v2.uploader.upload(houseImageUri);
-  const designElevationUploads = await Promise.all(
-    allImagesUris.map((image) => cloudinary.v2.uploader.upload(image))
-  );
+    // Check file sizes
+    if (
+      (houseImage && houseImage.size > MAX_FILE_SIZE) ||
+      (architectImage && architectImage.size > MAX_FILE_SIZE) ||
+      allImages.some((file) => file.size > MAX_FILE_SIZE)
+    ) {
+      return res.status(400).json({
+        error: "One or more files are too large. Maximum file size is 10 MB.",
+      });
+    }
 
-  await Design.create({
-    designTitle,
-    location,
-    heightInFeet,
-    widthInFeet,
-    noOfBathRooms,
-    noOfBedRooms,
-    architectName,
-    profession,
-    popular,
-    category,
-    designDes,
-    areaInSquareFeet,
-    architectImage: {
-      public_id: architectImageUpload.public_id,
-      url: architectImageUpload.secure_url,
-    },
-    houseImage: {
-      public_id: houseImageUpload.public_id,
-      url: houseImageUpload.secure_url,
-    },
-    allImages: designElevationUploads.map((upload) => ({
-      public_id: upload.public_id,
-      url: upload.secure_url,
-    })),
-  });
+    let houseImageUpload = null;
+    if (houseImage) {
+      houseImageUpload = await cloudinary.uploader.upload(houseImage.path);
+    }
 
-  return res.status(201).json({
-    success: "true",
-    message: "Created",
-  });
+    let architectImageUpload = null;
+    if (architectImage) {
+      architectImageUpload = await cloudinary.uploader.upload(
+        architectImage.path
+      );
+    }
+
+    const allImageUploads = [];
+    for (const file of allImages) {
+      const result = await cloudinary.uploader.upload(file.path);
+      allImageUploads.push(result);
+    }
+    const areaInSquareFeet = Number(heightInFeet) * Number(widthInFeet)
+    const imageObject = {
+      designTitle,
+      designDes,
+      location,
+      heightInFeet,
+      widthInFeet,
+      areaInSquareFeet,
+      noOfBathRooms,
+      noOfBedRooms,
+      architectName,
+      profession,
+      popular,
+      category,
+      houseImage: houseImageUpload
+        ? {
+            public_id: houseImageUpload.public_id,
+            secure_url: houseImageUpload.secure_url,
+          }
+        : null,
+      architectImage: architectImageUpload
+        ? {
+            public_id: architectImageUpload.public_id,
+            secure_url: architectImageUpload.secure_url,
+          }
+        : null,
+      allImages: allImageUploads.map((img) => ({
+        public_id: img.public_id,
+        secure_url: img.secure_url,
+      })),
+    };
+
+    const newImageDocument = new Design(imageObject);
+
+    await newImageDocument.save();
+
+    res.status(200).json({
+      message: "Images and design details uploaded and stored successfully",
+      allListings: newImageDocument,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 export const getAllDesigns = catchAsyncError(async (req, res, next) => {
   const allListings = await Design.find();
-
+  
   return res.status(201).json({
     success: "true",
     allListings,
