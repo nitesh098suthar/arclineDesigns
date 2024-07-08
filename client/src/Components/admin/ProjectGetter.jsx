@@ -3,6 +3,7 @@ import { useEffect } from "react";
 // import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteOndeDesignAction,
 //   updateDesignAction,
 //   deleteDesignAction,
   getAllDesignsAction,
@@ -14,7 +15,7 @@ const ProjectGetter = () => {
 
   useEffect(() => {
     dispatch(getAllDesignsAction());
-  },[]);
+  },[dispatch]);
 
   const {allListings} = useSelector((state) => state.designReducer);
 
@@ -24,8 +25,10 @@ const ProjectGetter = () => {
   };
 
   const deleteDesign = async (id) => {
-    // await dispatch(deleteDesignAction(id));
-    // dispatch(getAllDesignsAction());
+    console.log("here is delete id ", id)
+    await dispatch(deleteOndeDesignAction(id));
+    await dispatch(getAllDesignsAction());
+    console.log("design delete successfully")
   };
 
   return false ? (
@@ -84,7 +87,7 @@ const ProjectGetter = () => {
                     </td>
                     <td className="p-2 text-center px-6 text-white">
                       <button
-                        onClick={() => deleteDesign(design.id)}
+                        onClick={() => deleteDesign(design._id)}
                         className="p-1 bg-redColor text-white text-sm px-4 rounded-sm hover:bg-red-600"
                       >
                         Delete

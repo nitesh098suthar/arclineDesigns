@@ -27,7 +27,7 @@ const LocationCategory = () => {
       <div className="grid grid-cols-3 place-items-center">
         {filteredCategroy.map((item, index) => {
           return (
-            <Link key={index} to={`/design/${item.id}`}>
+            <Link key={index} to={`/design/${item._id}`}>
               <ListingCard key={index} item={item} />
             </Link>
           );

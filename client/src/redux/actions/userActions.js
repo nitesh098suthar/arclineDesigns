@@ -27,6 +27,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const loadUser = () => async (dispatch) => {
   try {
+    console.log("loaduser called")
     dispatch(loadUserRequest());
     const { data } = await instance.get("/getprofile");
     dispatch(loadUserSuccess(data));

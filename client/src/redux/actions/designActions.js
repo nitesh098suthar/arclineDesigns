@@ -48,3 +48,21 @@ export const createDesignAction = (myForm) => async (dispatch) => {
 };
 
 
+
+export const deleteOndeDesignAction = (id) => async (dispatch) => {
+  try {
+    dispatch(req());
+
+    const { data } = await instance.delete(`/design/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("here data is payload of created data", data)
+    dispatch(res(data));
+  } catch (error) {
+    dispatch(rej(error?.response?.data?.message));
+  }
+};
+
+
