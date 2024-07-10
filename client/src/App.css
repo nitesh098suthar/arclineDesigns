@@ -86,10 +86,10 @@
   width: 80vw;
 }
 
-.testimonialSlick .slick-slider {
-  left: 28px;
-}
 
+.testimonialSlick .slick-slider {
+  left: 140px;
+}
 
 
 @media (max-width: 768px) {
@@ -98,9 +98,13 @@
     width: 320px;
   }
 }
-@media (max-width: 360px) {
+@media (max-width: 361px) {
+  
+  .testimonialSlick .slick-slider {
+    left: 40px;
+  }
   .slick-slider {
-    left: 24px;
+    left: 00px;
     width: 280px;
   }
 }
