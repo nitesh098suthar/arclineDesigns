@@ -1,14 +1,14 @@
 import React from "react";
-import { allListings } from "../Layout/allListings.js";
 import firstImage from "/images/firstImage.jpg";
 import secondImage from "/images/secondImage.jpg";
 import thirdImage from "/images/thirdImage.jpg";
 import fourthImage from "/images/fourthImage.jpg";
 import fifthImage from "/images/fifthImage.jpg";
-import sixthImage from "/images/sixthImage.jpg";
 import { Link } from "react-router-dom";
 
 const FeatureLocation = () => {
+
+
   return (
     <div className="my-12 mobile:h-[1500px] mobile:border-black">
       <div className="flex justify-center items-center">

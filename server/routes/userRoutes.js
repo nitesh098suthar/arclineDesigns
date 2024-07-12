@@ -13,7 +13,6 @@ import {
 } from "../controllers/userControllers.js";
 import {
   authMiddleware,
-  authorizedAdmin,
 } from "../middlewares/authMiddleware.js";
 import uploadDesignFiles from "../middlewares/multer.js";
 
@@ -38,7 +37,6 @@ Router.route("/resetpassword/:token").put(resetPasswordController);
 
 Router.route("/admin/getallusers").get(
   authMiddleware,
-  authorizedAdmin,
   getAllUsersController
 );
 

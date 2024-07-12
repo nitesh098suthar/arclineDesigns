@@ -32,5 +32,5 @@ app.use("/api/v1", userRouter);
 app.use("/api/v1", designRouter);
 app.use("/api/v1", otherRouter);
 
-export default app;
 app.use(errorMiddleware);
+export default app;

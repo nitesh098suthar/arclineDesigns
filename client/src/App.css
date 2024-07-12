@@ -123,7 +123,7 @@
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   place-items: center;
-  width: 610px;
+  width: 610px;               
 }
 
 /* --------------------------- */
@@ -161,4 +161,44 @@
 
 .imageInput > input[type="file"] {
   display: none;
+}
+
+
+/* ==============================Loader=============================== */
+
+.loader {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  align-items: center;
+  background-color: #181e24;
+  display: grid;
+  place-content: center;
+}
+.loaderCircle {
+  height: 60px;
+  width: 60px;
+  background: conic-gradient(white, rgb(77, 77, 77));
+  border-radius: 50%;
+  position: relative;
+  animation: loading 1s linear infinite;
+}
+.loaderCircle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #181e24;
+  margin: 10px;
+}
+@keyframes loading {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }

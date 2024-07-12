@@ -47,6 +47,10 @@ const App = () => {
         <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/design/:id" element={<Details />} />
         <Route path="/location/:loc" element={<LocationCategory />} />
+
+        {/* from here admin routes  */}
+
+        
         <Route
           path="/admin"
           element={
@@ -58,11 +62,26 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="admin/projectupdater/:id" element={<ProjectUpdater />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/forgetpassword" element={<ForgetPassword />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="admin/projectupdater/:id" element={ <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              redirect="/admin"
+            >
+              <ProjectUpdater />
+            </ProtectedRoute>} />
+        <Route path="/login/8c5c11fc4b9de14be06c050b76c8d56a" element={<ProtectedRoute
+              isAuthenticated={!isAuthenticated}
+              redirect="/admin"
+            >
+              <Login />
+            </ProtectedRoute>} />
+        <Route path="/signup/8c5c11fc4b9de14be06c050b76c8d56b" element={<ProtectedRoute
+              isAuthenticated={!isAuthenticated}
+              redirect="/admin"
+            >
+              <Signup />
+            </ProtectedRoute>} />
+        {/* <Route path="/forgetpassword" element={<ForgetPassword />} /> */}
+        {/* <Route path="/resetpassword" element={<ResetPassword />} /> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

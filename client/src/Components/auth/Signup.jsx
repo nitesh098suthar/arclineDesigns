@@ -155,13 +155,13 @@ const Signup = () => {
                   Sign Up
                 </button>
               </div>
-              <div className="text-center my-10">
+              {/* <div className="text-center my-10">
                 <Link to="/login">
                   <button className="underline text-white outline-none border-0 hover:text-dullWhite">
                     Already Signed Up?
                   </button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </form>
         </div>

@@ -12,7 +12,7 @@ const toastSlice = createSlice({
       state.loading = true;
     },
     res: (state, action) => {
-      if (action !== null) state.message = action.payload.message;
+      state.message = action.payload.message;
       state.loading = false;
     },
     rej: (state, action) => {
@@ -29,3 +29,4 @@ const toastSlice = createSlice({
 });
 export const { clearError, clearMessage, req, res, rej } = toastSlice.actions;
 export default toastSlice.reducer;
+

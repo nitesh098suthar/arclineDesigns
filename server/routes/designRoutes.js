@@ -7,8 +7,8 @@ import {
   getOneDesign
 } from "../controllers/designControllers.js";
 
-import uploadDesignFiles from "../middlewares/multer.js";
 import upload from "../middlewares/uploadMiddleware.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const Router = express.Router();
 const uploadFields = upload.fields([
@@ -16,10 +16,10 @@ const uploadFields = upload.fields([
   { name: "architectImage" },
   { name: "allImages" },
 ]);
-Router.route("/design").post(uploadFields, createDesign).get(getAllDesigns);
+Router.route("/design").post( authMiddleware, uploadFields, createDesign).get(getAllDesigns);
 Router.route("/design/:id")
-  .put(uploadDesignFiles, updateDesign)
-  .delete(deleteDesign)
+  .put(authMiddleware, uploadFields, updateDesign)
+  .delete(authMiddleware, deleteDesign)
   .get(getOneDesign);
 
 export default Router;

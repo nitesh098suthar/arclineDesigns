@@ -59,7 +59,7 @@ const Login = () => {
                 value={input.password}
               />
             </div>
-            <div className="flex justify-between my-4">
+            {/* <div className="flex justify-between my-4">
               <Link to="/forgetpassword">
                 <button className="underline text-white outline-none border-0 hover:text-dullWhite">
                   Forget Password?
@@ -71,7 +71,7 @@ const Login = () => {
                   Sign Up Here
                 </button>
               </Link>
-            </div>
+            </div> */}
             <button
               className="text-white bg-greenColor rounded-sm w-full h-[35px] border-0 outline-none hover:bg-green-700"
               onClick={submitHandler}
