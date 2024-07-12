@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../Layout/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { rej, req, res } from "../../redux/reducers/globalReducer";
 
 function ProjectUpdater() {
   const { id } = useParams();
@@ -24,27 +26,28 @@ function ProjectUpdater() {
   const [houseImage, setHouseImage] = useState(null);
   const [allImages, setAllImages] = useState([]);
   const [existingDesign, setExistingDesign] = useState(null);
-
-  const {loading} = useSelector(state => state.globalReducer)
-
-
+  const dispatch = useDispatch()
+  const {loading} = useSelector(state=>state.globalReducer)
+  const nav = useNavigate()
   useEffect(() => {
     const fetchDesign = async () => {
       try {
-        const response = await axios.get(`http://localhost:9000/api/v1/design/${id}`);
-        setExistingDesign(response.data);
+        const response = await axios.get(
+          `http://localhost:9000/api/v1/design/${id}`
+        );
+        setExistingDesign(response.data.oneDesign);
         setInput({
-          designTitle: response.data.designTitle,
-          location: response.data.location,
-          heightInFeet: response.data.heightInFeet,
-          widthInFeet: response.data.widthInFeet,
-          noOfBathRooms: response.data.noOfBathRooms,
-          noOfBedRooms: response.data.noOfBedRooms,
-          architectName: response.data.architectName,
-          profession: response.data.profession,
-          popular: response.data.popular.toString(),
-          category: response.data.category,
-          designDes: response.data.designDes,
+          designTitle: response.data.oneDesign.designTitle,
+          location: response.data.oneDesign.location,
+          heightInFeet: response.data.oneDesign.heightInFeet,
+          widthInFeet: response.data.oneDesign.widthInFeet,
+          noOfBathRooms: response.data.oneDesign.noOfBathRooms,
+          noOfBedRooms: response.data.oneDesign.noOfBedRooms,
+          architectName: response.data.oneDesign.architectName,
+          profession: response.data.oneDesign.profession,
+          popular: response.data.oneDesign.popular.toString(),
+          category: response.data.oneDesign.category,
+          designDes: response.data.oneDesign.designDes,
         });
       } catch (error) {
         console.error("Error fetching design data", error);
@@ -104,6 +107,7 @@ function ProjectUpdater() {
     }
 
     try {
+      dispatch(req())
       const response = await axios.put(
         `http://localhost:9000/api/v1/design/${id}`,
         formData,
@@ -111,10 +115,14 @@ function ProjectUpdater() {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+          withCredentials : true
         }
       );
+      dispatch(res(response.data))
+      nav("/admin")
       alert(response.data.message);
     } catch (error) {
+      dispatch(rej(response.data.error.message))
       console.error(error);
       alert("Error uploading images");
     }
@@ -125,133 +133,137 @@ function ProjectUpdater() {
   }
 
   return (
-    <div className="App p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
-      <h1 className="text-2xl font-bold text-center">Update Project</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="text"
-            placeholder="Design Title"
-            onChange={inputHandler}
-            value={input.designTitle}
-            name="designTitle"
-          />
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="text"
-            placeholder="Location"
-            onChange={inputHandler}
-            value={input.location}
-            name="location"
-          />
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="text"
-            placeholder="Height in Feet"
-            onChange={numberInputHandler}
-            value={input.heightInFeet}
-            name="heightInFeet"
-          />
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="text"
-            placeholder="Width in Feet"
-            onChange={numberInputHandler}
-            value={input.widthInFeet}
-            name="widthInFeet"
-          />
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="text"
-            placeholder="Number of Bathrooms"
-            onChange={numberInputHandler}
-            value={input.noOfBathRooms}
-            name="noOfBathRooms"
-          />
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="text"
-            placeholder="Number of Bedrooms"
-            onChange={numberInputHandler}
-            value={input.noOfBedRooms}
-            name="noOfBedRooms"
-          />
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="text"
-            placeholder="Architect Name"
-            onChange={inputHandler}
-            value={input.architectName}
-            name="architectName"
-          />
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="text"
-            placeholder="Profession"
-            onChange={inputHandler}
-            value={input.profession}
-            name="profession"
-          />
-          <select
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            onChange={inputHandler}
-            value={input.popular}
-            name="popular"
+    <>
+    {
+      loading ? (<Loader />) : (<div className="App p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
+        <h1 className="text-2xl font-bold text-center">Update Project</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="text"
+              placeholder="Design Title"
+              onChange={inputHandler}
+              value={input.designTitle}
+              name="designTitle"
+            />
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="text"
+              placeholder="Location"
+              onChange={inputHandler}
+              value={input.location}
+              name="location"
+            />
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="text"
+              placeholder="Height in Feet"
+              onChange={numberInputHandler}
+              value={input.heightInFeet}
+              name="heightInFeet"
+            />
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="text"
+              placeholder="Width in Feet"
+              onChange={numberInputHandler}
+              value={input.widthInFeet}
+              name="widthInFeet"
+            />
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="text"
+              placeholder="Number of Bathrooms"
+              onChange={numberInputHandler}
+              value={input.noOfBathRooms}
+              name="noOfBathRooms"
+            />
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="text"
+              placeholder="Number of Bedrooms"
+              onChange={numberInputHandler}
+              value={input.noOfBedRooms}
+              name="noOfBedRooms"
+            />
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="text"
+              placeholder="Architect Name"
+              onChange={inputHandler}
+              value={input.architectName}
+              name="architectName"
+            />
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="text"
+              placeholder="Profession"
+              onChange={inputHandler}
+              value={input.profession}
+              name="profession"
+            />
+            <select
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              onChange={inputHandler}
+              value={input.popular}
+              name="popular"
+            >
+              <option value="false">False</option>
+              <option value="true">True</option>
+            </select>
+            <select
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              onChange={inputHandler}
+              value={input.category}
+              name="category"
+            >
+              <option value="Residential">Residential</option>
+              <option value="Commercial Hospitality">
+                Commercial Hospitality
+              </option>
+              <option value="Exterior">Exterior</option>
+              <option value="Interior">Interior</option>
+              <option value="Temples">Temples</option>
+              <option value="Others">Others</option>
+            </select>
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="text"
+              placeholder="Design Description"
+              onChange={inputHandler}
+              value={input.designDes}
+              name="designDes"
+            />
+          </div>
+          <div className="space-y-2">
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="file"
+              onChange={handleHouseImageChange}
+            />
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="file"
+              onChange={handleArchitectImageChange}
+            />
+            <input
+              className="w-full border-[1px] border-gray-300 p-2 rounded"
+              type="file"
+              multiple
+              onChange={handleAllImagesChange}
+            />
+          </div>
+          <button
+            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
+            type="submit"
           >
-            <option value="false">False</option>
-            <option value="true">True</option>
-          </select>
-          <select
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            onChange={inputHandler}
-            value={input.category}
-            name="category"
-          >
-            <option value="Residential">Residential</option>
-            <option value="Commercial Hospitality">
-              Commercial Hospitality
-            </option>
-            <option value="Exterior">Exterior</option>
-            <option value="Interior">Interior</option>
-            <option value="Temples">Temples</option>
-            <option value="Others">Others</option>
-          </select>
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="text"
-            placeholder="Design Description"
-            onChange={inputHandler}
-            value={input.designDes}
-            name="designDes"
-          />
-        </div>
-        <div className="space-y-2">
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="file"
-            onChange={handleHouseImageChange}
-          />
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="file"
-            onChange={handleArchitectImageChange}
-          />
-          <input
-            className="w-full border-[1px] border-gray-300 p-2 rounded"
-            type="file"
-            multiple
-            onChange={handleAllImagesChange}
-          />
-        </div>
-        <button
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
-          type="submit"
-        >
-          Submit
-        </button>
-      </form>
-    </div>
+            Submit
+          </button>
+        </form>
+      </div>)
+    }
+    </>
   );
 }
 

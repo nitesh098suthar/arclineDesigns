@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../Layout/Loader";
 
 const Admin = () => {
+  console.log("hello ");
   const [assigner, setAssigner] = useState("first");
   const dispatch = useDispatch();
   const nav = useNavigate();

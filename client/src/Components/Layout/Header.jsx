@@ -24,7 +24,6 @@ const Header = () => {
     setNavVisible(false);
   };
 
-
   return (
     <div>
       <div className={`navSlider ${navVisible ? "open" : ""}`}>

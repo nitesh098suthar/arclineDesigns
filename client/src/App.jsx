@@ -34,12 +34,15 @@ const App = () => {
 
   const { isAuthenticated } = useSelector((state) => state.userReducer);
   console.log("isAuthenticated", isAuthenticated);
-  
+
   return (
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route
+          path="/"
+          element={<Landing />}
+        />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/policy" element={<Policy />} />
@@ -50,36 +53,44 @@ const App = () => {
 
         {/* from here admin routes  */}
 
-        
         <Route
           path="/admin"
           element={
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              redirect="/admin"
-            >
+            <ProtectedRoute isAuthenticated={isAuthenticated} redirect="/">
               <Admin />
             </ProtectedRoute>
           }
         />
-        <Route path="admin/projectupdater/:id" element={ <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              redirect="/admin"
-            >
+        <Route
+          path="admin/projectupdater/:id"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated} redirect="/admin">
               <ProjectUpdater />
-            </ProtectedRoute>} />
-        <Route path="/login/8c5c11fc4b9de14be06c050b76c8d56a" element={<ProtectedRoute
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/login/8c5c11fc4b9de14be06c050b76c8d56a"
+          element={
+            <ProtectedRoute
               isAuthenticated={!isAuthenticated}
               redirect="/admin"
             >
               <Login />
-            </ProtectedRoute>} />
-        <Route path="/signup/8c5c11fc4b9de14be06c050b76c8d56b" element={<ProtectedRoute
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/signup/8c5c11fc4b9de14be06c050b76c8d56b"
+          element={
+            <ProtectedRoute
               isAuthenticated={!isAuthenticated}
               redirect="/admin"
             >
               <Signup />
-            </ProtectedRoute>} />
+            </ProtectedRoute>
+          }
+        />
         {/* <Route path="/forgetpassword" element={<ForgetPassword />} /> */}
         {/* <Route path="/resetpassword" element={<ResetPassword />} /> */}
         <Route path="*" element={<NotFound />} />

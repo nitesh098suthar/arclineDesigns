@@ -11,11 +11,6 @@ const ProjectGetter = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
 
-  // Fetch designs when the component mounts
-  useEffect(() => {
-    dispatch(getAllDesignsAction());
-  }, [dispatch]);
-
   const { allListings } = useSelector((state) => state.designReducer);
   const { loading } = useSelector((state) => state.globalReducer);
 

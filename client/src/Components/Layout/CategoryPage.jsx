@@ -11,9 +11,10 @@ const CategoryPage = () => {
   // console.log("category, ", category);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllDesignsAction());
-  }, [category, dispatch]);
+  // todo : later
+  // useEffect(() => {
+  //   dispatch(getAllDesignsAction());
+  // }, [category, dispatch]);
 
   const { allListings } = useSelector((state) => state.designReducer) || {
     allListings: [],

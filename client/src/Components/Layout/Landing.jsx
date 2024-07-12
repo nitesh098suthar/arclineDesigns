@@ -13,11 +13,13 @@ const Landing = () => {
   const dispatch = useDispatch();
   const {allListings} = useSelector(state => state.designReducer)
   console.log("actual usable data", allListings)
-  useEffect(() => {
-    console.log("--------------------use effect---------------------");
-    dispatch(getAllDesignsAction());
-  }, [dispatch]);
+  // todo: later 
+  // useEffect(() => {
+  //   console.log("--------------------use effect---------------------");
+  //   dispatch(getAllDesignsAction());
+  // }, [dispatch]);
 
+  
   return (
     <>
       <div className="">
