@@ -13,8 +13,7 @@ import Help from "./Components/Layout/Help.jsx";
 import CategoryPage from "./Components/Layout/CategoryPage.jsx";
 import Details from "./Components/Layout/Details.jsx";
 import LocationCategory from "./Components/Layout/LocationCategory.jsx";
-import Admin from "./Components/Admin/Admin.jsx";
-import ProjectUpdater from "./Components/Admin/ProjectUpdater.jsx";
+import ProjectUpdater from "./Components/admin/ProjectUpdater.jsx";
 import Login from "./Components/auth/Login.jsx";
 import Signup from "./Components/auth/Signup.jsx";
 import { ProtectedRoute } from "protected-route-react";
@@ -22,6 +21,7 @@ import NotFound from "./Components/Not Found/NotFound.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./redux/actions/userActions.js";
 import { Toaster } from "react-hot-toast";
+import { Admin } from "./Components/admin/Admin.jsx";
 
 const App = () => {
   const dispatch = useDispatch();

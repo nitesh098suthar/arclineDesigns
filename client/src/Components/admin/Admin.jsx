@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ProjectAdder from "./ProjectAdder";
 import ProjectGetter from "./ProjectGetter";
 import { getAllDesignsAction } from "../../redux/actions/designActions";
@@ -7,7 +7,7 @@ import { logOut } from "../../redux/actions/userActions";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Layout/Loader";
 
-const Admin = () => {
+export const Admin = () => {
   const [assigner, setAssigner] = useState("first");
   const dispatch = useDispatch();
   const nav = useNavigate();
@@ -68,5 +68,3 @@ const Admin = () => {
     </>
   );
 };
-
-export default Admin;
