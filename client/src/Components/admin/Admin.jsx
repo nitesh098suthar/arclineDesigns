@@ -35,7 +35,7 @@ const Admin = () => {
           <div className="sidebar grid place-items-center pt-14">
             <span className="flex space-x-4 ">
               <button
-                                className="bg-primary p-2 w-56 outline-none rounded-md text-white hover:bg-primary/90"
+                className="bg-primary p-2 w-56 outline-none rounded-md text-white hover:bg-primary/90"
 
                 onClick={() => setAssigner("first")}
               >

@@ -103,7 +103,7 @@ const Testimonials = () => {
                     {item.location}
                   </p>
                 </div>
-                <p className="text-black text-center text-sm mobile:text-xs">
+                <p className="text-black text-center text-sm mobile:text-xs line-clamp-4">
                   {item.description}
                 </p>
               </div>
