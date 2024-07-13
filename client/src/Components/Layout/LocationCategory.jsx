@@ -24,7 +24,7 @@ const LocationCategory = () => {
       })
     : [];
   return (
-    <div className="my-12 px-14 mobile:px-2">
+    <div className="min-h-[60vh] my-12 px-14 mobile:px-2">
       <div className="grid grid-cols-3 place-items-center">
         {filteredCategroy.map((item, index) => {
           return (

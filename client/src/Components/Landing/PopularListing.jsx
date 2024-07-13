@@ -46,9 +46,11 @@ const PopularListing = () => {
           </div>
         </div>
         <div className="flex justify-center">
+          <Link to={"category/all"}>
           <button className="bg-primary text-white rounded-full text-sm px-6 py-2 mt-8 hover:bg-primary/90 transition-colors">
             Load More
           </button>
+          </Link>
         </div>
       </div>)
     }

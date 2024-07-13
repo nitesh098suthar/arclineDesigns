@@ -43,7 +43,7 @@ const ContactUs = () => {
   return loading ? (
     <Loader />
   ) : (
-    <div className="min-h-[10vh] p-10 w-[600px] mx-auto mobile:w-[380px] xxs:w-[300px]">
+    <div className="min-h-[60vh] p-10 w-[600px] mx-auto mobile:w-[380px] xxs:w-[300px]">
       <div className="flex justify-center items-center ">
         <div className=" flex items-center flex-col mb-8">
           <h1 className="text-3xl font-semibold text-center">

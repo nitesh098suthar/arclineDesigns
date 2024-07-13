@@ -1,12 +1,18 @@
 import React from "react"
 import Slider from "react-slick"
-
 const testimonials = [
   {
     userName: "Sumer Singh",
     userAvatar: "images/avatar.png",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, velit praesentium quo voluptate necessitatibus maiores iste, optio ipsam doloremque eum ad quas ab mollitia in dolore. Maiores voluptates pariatur sequi.",
+      "Lorem, ipsum dolor sit amet cres iste, optio ipsam doloremque eum ad quas ab mollitia in dolore. Maiores voluptates pariatur sequi.",
+    location : "location"
+  },
+  {
+    userName: "Sumer Singh",
+    userAvatar: "images/avatar.png",
+    description:
+      "Lorem, ipsum dolor es iste, optio ipsam doloremque eum ad quas ab mollitia in dolore. Maiores voluptates pariatur sequi.",
     location : "location"
   },
   {
@@ -20,28 +26,21 @@ const testimonials = [
     userName: "Sumer Singh",
     userAvatar: "images/avatar.png",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, velit praesentium quo voluptate necessitatibus maiores iste, optio ipsam doloremque eum ad quas ab mollitia in dolore. Maiores voluptates pariatur sequi.",
+      "Lorem, ipsum dolor sit amet ctur sequi.",
     location : "location"
   },
   {
     userName: "Sumer Singh",
     userAvatar: "images/avatar.png",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, velit praesentium quo voluptate necessitatibus maiores iste, optio ipsam doloremque eum ad quas ab mollitia in dolore. Maiores voluptates pariatur sequi.",
+      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, vs maiores iste, optio ipsam doloremque eum ad quas ab mollitia in dolore. Maiores voluptates pariatur sequi.",
     location : "location"
   },
   {
     userName: "Sumer Singh",
     userAvatar: "images/avatar.png",
     description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, velit praesentium quo voluptate necessitatibus maiores iste, optio ipsam doloremque eum ad quas ab mollitia in dolore. Maiores voluptates pariatur sequi.",
-    location : "location"
-  },
-  {
-    userName: "Sumer Singh",
-    userAvatar: "images/avatar.png",
-    description:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, velit praesentium quo voluptate necessitatibus maiores iste, optio ipsam doloremque eum ad quas ab mollitia in dolore. Maiores voluptates pariatur sequi.",
+      "Lorem, ipsum dolor sit amet consectetur adipisiciibus maiores iste, optio ipsam doloremque eum ad quas ab mollitia in dolore. Maiores voluptates pariatur sequi.",
     location : "location"
   },
 ]
@@ -51,7 +50,7 @@ const Testimonials = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 5,
     slidesToScroll: 1,
     responsive: [
       {
@@ -64,7 +63,10 @@ const Testimonials = () => {
     ],
   }
   return (
-    <div className="">
+    <div className="grid place-items-center h-[550px] overflow-hidden mb-16">
+
+      <div className="w-[1200px]">
+        
       <div className="flex justify-center items-center ">
         <div className=" flex items-center flex-col mb-8">
           <h1 className="text-3xl font-semibold">Testimonial</h1>
@@ -79,7 +81,7 @@ const Testimonials = () => {
           {testimonials.map((item, i) => (
             <div
               key={i}
-              className="bg-gray-100 p-6 min-h-[350px] rounded-lg border-gray-300 border-[1px] w-[200px]"
+              className="bg-gray-100 p-6 h-[360px]  rounded-lg border-gray-300 border-[1px] w-[200px] "
             >
               <div className="grid place-items-center">
                 <div className="w-[100px] rounded-full overflow-hidden h-[100px] border-gray-400 border-[1px]">
@@ -108,6 +110,8 @@ const Testimonials = () => {
             </div>
           ))}
         </Slider>
+      </div>
+    
       </div>
     </div>
   )

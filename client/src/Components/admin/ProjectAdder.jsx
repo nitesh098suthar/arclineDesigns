@@ -102,6 +102,7 @@ function ProjectAdder({ showProjectHandler }) {
       dispatch(rej(error?.response?.data?.message));
     }
   };
+
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -118,132 +119,188 @@ function ProjectAdder({ showProjectHandler }) {
       {loading ? (
         <Loader />
       ) : (
-        <div className="App p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
-          <h1 className="text-2xl font-bold text-center">Image Upload</h1>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="text"
-                placeholder="Design Title"
-                onChange={inputHandler}
-                value={input.designTitle}
-                name="designTitle"
-              />
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="text"
-                placeholder="Location"
-                onChange={inputHandler}
-                value={input.location}
-                name="location"
-              />
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="text"
-                placeholder="Height in Feet"
-                onChange={numberInputHandler}
-                value={input.heightInFeet}
-                name="heightInFeet"
-              />
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="text"
-                placeholder="Width in Feet"
-                onChange={numberInputHandler}
-                value={input.widthInFeet}
-                name="widthInFeet"
-              />
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="text"
-                placeholder="Number of Bathrooms"
-                onChange={numberInputHandler}
-                value={input.noOfBathRooms}
-                name="noOfBathRooms"
-              />
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="text"
-                placeholder="Number of Bedrooms"
-                onChange={numberInputHandler}
-                value={input.noOfBedRooms}
-                name="noOfBedRooms"
-              />
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="text"
-                placeholder="Architect Name"
-                onChange={inputHandler}
-                value={input.architectName}
-                name="architectName"
-              />
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="text"
-                placeholder="Profession"
-                onChange={inputHandler}
-                value={input.profession}
-                name="profession"
-              />
-              <select
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                onChange={inputHandler}
-                value={input.popular}
-                name="popular"
-              >
-                <option value="false">False</option>
-                <option value="true">True</option>
-              </select>
-              <select
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                onChange={inputHandler}
-                value={input.category}
-                name="category"
-              >
-                <option value="Residential">Residential</option>
-                <option value="Commercial Hospitality">
-                  Commercial Hospitality
-                </option>
-                <option value="Exterior">Exterior</option>
-                <option value="Interior">Interior</option>
-                <option value="Temples">Temples</option>
-                <option value="Others">Others</option>
-              </select>
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="text"
-                placeholder="Design Description"
-                onChange={inputHandler}
-                value={input.designDes}
-                name="designDes"
-              />
+        <div className="min-h-[60vh] p-10 w-[600px] mx-auto mobile:w-[380px] xxs:w-[300px] pb-20">
+          <div className="flex justify-center items-center">
+            <div className="flex items-center flex-col mb-8">
+              <h1 className="text-3xl font-semibold text-center">Create a new project</h1>
+              <div className="flex gap-1 my-4">
+                <div className="w-14 h-[5px] rounded-full bg-primary"></div>
+                <div className="w-4 h-[5px] rounded-full bg-primary"></div>
+              </div>
             </div>
-            <div className="space-y-2">
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="file"
-                onChange={handleHouseImageChange}
-              />
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="file"
-                onChange={handleArchitectImageChange}
-              />
-              <input
-                className="w-full border-[1px] border-gray-300 p-2 rounded"
-                type="file"
-                multiple
-                onChange={handleAllImagesChange}
-              />
-            </div>
-            <button
-              className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
-              type="submit"
-            >
-              Submit
-            </button>
-          </form>
+          </div>
+          <div className="bg-lightGrey border-primary p-6 rounded-lg w-full">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <div className="flex flex-col space-y-2">
+                  <label className="text-sm font-semibold">Design Title</label>
+                  <input
+                    className="bg-white p-2 outline-none rounded-md w-full"
+                    type="text"
+                    placeholder="Enter design title"
+                    onChange={inputHandler}
+                    value={input.designTitle}
+                    name="designTitle"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <label className="text-sm font-semibold">Location</label>
+                  <input
+                    className="bg-white p-2 outline-none rounded-md w-full"
+                    type="text"
+                    placeholder="Enter location"
+                    onChange={inputHandler}
+                    value={input.location}
+                    name="location"
+                  />
+                </div>
+                <div className="flex space-x-4">
+                  <div className="flex flex-col space-y-2 w-full">
+                    <label className="text-sm font-semibold">Height in Feet</label>
+                    <input
+                      className="bg-white p-2 outline-none rounded-md w-full"
+                      type="text"
+                      placeholder="Enter height in feet"
+                      onChange={numberInputHandler}
+                      value={input.heightInFeet}
+                      name="heightInFeet"
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-2 w-full">
+                    <label className="text-sm font-semibold">Width in Feet</label>
+                    <input
+                      className="bg-white p-2 outline-none rounded-md w-full"
+                      type="text"
+                      placeholder="Enter width in feet"
+                      onChange={numberInputHandler}
+                      value={input.widthInFeet}
+                      name="widthInFeet"
+                    />
+                  </div>
+                </div>
+                <div className="flex space-x-4">
+                  <div className="flex flex-col space-y-2 w-full">
+                    <label className="text-sm font-semibold">Number of Bathrooms</label>
+                    <input
+                      className="bg-white p-2 outline-none rounded-md w-full"
+                      type="text"
+                      placeholder="Enter number of bathrooms"
+                      onChange={numberInputHandler}
+                      value={input.noOfBathRooms}
+                      name="noOfBathRooms"
+                    />
+                  </div>
+                  <div className="flex flex-col space-y-2 w-full">
+                    <label className="text-sm font-semibold">Number of Bedrooms</label>
+                    <input
+                      className="bg-white p-2 outline-none rounded-md w-full"
+                      type="text"
+                      placeholder="Enter number of bedrooms"
+                      onChange={numberInputHandler}
+                      value={input.noOfBedRooms}
+                      name="noOfBedRooms"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <label className="text-sm font-semibold">Architect Name</label>
+                  <input
+                    className="bg-white p-2 outline-none rounded-md w-full"
+                    type="text"
+                    placeholder="Enter architect name"
+                    onChange={inputHandler}
+                    value={input.architectName}
+                    name="architectName"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <label className="text-sm font-semibold">Profession</label>
+                  <input
+                    className="bg-white p-2 outline-none rounded-md w-full"
+                    type="text"
+                    placeholder="Enter profession"
+                    onChange={inputHandler}
+                    value={input.profession}
+                    name="profession"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <label className="text-sm font-semibold">Popular</label>
+                  <select
+                    className="bg-white p-2 outline-none rounded-md w-full"
+                    onChange={inputHandler}
+                    value={input.popular}
+                    name="popular"
+                  >
+                    <option value="false">False</option>
+                    <option value="true">True</option>
+                  </select>
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <label className="text-sm font-semibold">Category</label>
+                  <select
+                    className="bg-white p-2 outline-none rounded-md w-full"
+                    onChange={inputHandler}
+                    value={input.category}
+                    name="category"
+                  >
+                    <option value="Residential">Residential</option>
+                    <option value="Commercial Hospitality">
+                      Commercial Hospitality
+                    </option>
+                    <option value="Exterior">Exterior</option>
+                    <option value="Interior">Interior</option>
+                    <option value="Temples">Temples</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <label className="text-sm font-semibold">Design Description</label>
+                  <input
+                    className="bg-white p-2 outline-none rounded-md w-full"
+                    type="text"
+                    placeholder="Enter design description"
+                    onChange={inputHandler}
+                    value={input.designDes}
+                    name="designDes"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex flex-col space-y-2">
+                  <label className="text-sm font-semibold">House Image</label>
+                  <input
+                    className="bg-white p-2 outline-none rounded-md w-full"
+                    type="file"
+                    onChange={handleHouseImageChange}
+                  />
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <label className="text-sm font-semibold">Architect Image</label>
+                  <input
+                    className="bg-white p-2 outline-none rounded-md w-full"
+                    type="file"
+                    onChange={handleArchitectImageChange}
+                  />
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <label className="text-sm font-semibold">Additional Images</label>
+                  <input
+                    className="bg-white p-2 outline-none rounded-md w-full"
+                    type="file"
+                    multiple
+                    onChange={handleAllImagesChange}
+                  />
+                </div>
+              </div>
+              <button
+                className="bg-primary p-2 w-full outline-none rounded-md text-white hover:bg-primary/90"
+                type="submit"
+              >
+                Create
+              </button>
+            </form>
+          </div>
         </div>
       )}
     </>

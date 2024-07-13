@@ -26,6 +26,7 @@ const ProjectGetter = () => {
     await dispatch(deleteOndeDesignAction(id));
     dispatch(getAllDesignsAction());
   };
+
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -42,79 +43,62 @@ const ProjectGetter = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="bg-[#1D232A] min-h-screen pb-16">
-          <h1 className="text-center text-5xl text-white py-14 font-bold">
-            All Designs
-          </h1>
-          <div className="mb-10">{/* <SideBar /> */}</div>
-          <div className="grid place-content-center ">
-            <table>
+        <div className="bg-white min-h-screen pb-16 overflow-hidden">
+          <div className="flex justify-center items-center">
+            <div className="flex items-center flex-col mb-8 pt-16">
+              <h1 className="text-3xl font-semibold text-center">Manage all projects</h1>
+              <div className="flex gap-1 my-4">
+                <div className="w-14 h-[5px] rounded-full bg-primary"></div>
+                <div className="w-4 h-[5px] rounded-full bg-primary"></div>
+              </div>
+            </div>
+          </div>
+          <div className="overflow-x-auto scrollbarRemover">
+            <table className="mx-auto max-w-4xl w-full bg-white">
               <thead>
-                <tr className="text-cyanColor font-light pb-4">
-                  <td className="p-2 text-center px-6">ID</td>
-                  <td className="p-2 text-center px-6">Design Title</td>
-                  <td className="p-2 text-center px-6">Location</td>
-                  <td className="p-2 text-center px-6">Height (ft)</td>
-                  <td className="p-2 text-center px-6">Width (ft)</td>
-                  <td className="p-2 text-center px-6">Bathrooms</td>
-                  <td className="p-2 text-center px-6">Bedrooms</td>
-                  <td className="p-2 text-center px-6">Area (sq ft)</td>
-                  <td className="p-2 text-center px-6">Architect</td>
-                  <td className="p-2 text-center px-6">Popular</td>
-                  <td className="p-2 text-center px-6">Category</td>
-                  <td className="p-2 text-center px-6">Update</td>
-                  <td className="p-2 text-center px-6">Delete</td>
+                <tr className="text-darkGray font-medium bg-lightGrey">
+                  <th className="p-4 text-center border-b border-lightGray">ID</th>
+                  <th className="p-4 text-center border-b border-lightGray">Design Title</th>
+                  <th className="p-4 text-center border-b border-lightGray">Location</th>
+                  <th className="p-4 text-center border-b border-lightGray">Height (ft)</th>
+                  <th className="p-4 text-center border-b border-lightGray">Width (ft)</th>
+                  <th className="p-4 text-center border-b border-lightGray">Bathrooms</th>
+                  <th className="p-4 text-center border-b border-lightGray">Bedrooms</th>
+                  <th className="p-4 text-center border-b border-lightGray">Area (sq ft)</th>
+                  <th className="p-4 text-center border-b border-lightGray">Architect</th>
+                  <th className="p-4 text-center border-b border-lightGray">Popular</th>
+                  <th className="p-4 text-center border-b border-lightGray">Category</th>
+                  <th className="p-4 text-center border-b border-lightGray">Update</th>
+                  <th className="p-4 text-center border-b border-lightGray">Delete</th>
                 </tr>
               </thead>
               <tbody>
                 {allListings &&
-                  allListings.map((design, i) => (
-                    <tr key={i}>
-                      <td className="p-2 text-center px-6 text-white">
-                        {design ? i + 1 : null}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white capitalize">
-                        {design.designTitle}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white">
-                        {design.location}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white">
-                        {design.heightInFeet}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white">
-                        {design.widthInFeet}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white">
-                        {design.noOfBathRooms}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white">
-                        {design.noOfBedRooms}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white">
-                        {design.areaInSquareFeet}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white capitalize">
-                        {design.architectName}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white">
-                        {design.popular ? "Yes" : "No"}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white capitalize">
-                        {design.category}
-                      </td>
-                      <td className="p-2 text-center px-6 text-white">
+                  allListings.map((design, index) => (
+                    <tr key={design._id} className="border-b border-lightGray">
+                      <td className="p-4 text-center">{index + 1}</td>
+                      <td className="p-4 text-center capitalize">{design.designTitle}</td>
+                      <td className="p-4 text-center">{design.location}</td>
+                      <td className="p-4 text-center">{design.heightInFeet}</td>
+                      <td className="p-4 text-center">{design.widthInFeet}</td>
+                      <td className="p-4 text-center">{design.noOfBathRooms}</td>
+                      <td className="p-4 text-center">{design.noOfBedRooms}</td>
+                      <td className="p-4 text-center">{design.areaInSquareFeet}</td>
+                      <td className="p-4 text-center capitalize">{design.architectName}</td>
+                      <td className="p-4 text-center">{design.popular ? "Yes" : "No"}</td>
+                      <td className="p-4 text-center capitalize">{design.category}</td>
+                      <td className="p-4 text-center">
                         <button
                           onClick={() => updateDesign(design._id)}
-                          className="p-1 bg-greenColor text-white text-sm px-4 rounded-sm hover:bg-green-700"
+                          className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
                         >
                           Update
                         </button>
                       </td>
-                      <td className="p-2 text-center px-6 text-white">
+                      <td className="p-4 text-center">
                         <button
                           onClick={() => deleteDesign(design._id)}
-                          className="p-1 bg-redColor text-white text-sm px-4 rounded-sm hover:bg-red-600"
+                          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
                         >
                           Delete
                         </button>

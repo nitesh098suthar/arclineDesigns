@@ -25,6 +25,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store.js";
 import { loadUser } from "./redux/actions/userActions.js";
 import { Toaster } from "react-hot-toast";
+import Loader from "./Components/Layout/Loader.jsx";
 const App = () => {
   const dispatch = useDispatch();
 
@@ -35,7 +36,10 @@ const App = () => {
   const { isAuthenticated } = useSelector((state) => state.userReducer);
 
   return (
-    <>
+    <div className="grid place-items-center">
+
+      <div className="w-[1366px]">
+        
       <Header />
       <Routes>
         <Route
@@ -92,10 +96,13 @@ const App = () => {
         />
         {/* <Route path="/forgetpassword" element={<ForgetPassword />} /> */}
         {/* <Route path="/resetpassword" element={<ResetPassword />} /> */}
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Loader />} />
       </Routes>
       <Footer />
-    </>
+    
+      </div>
+
+    </div>
   );
 };
 

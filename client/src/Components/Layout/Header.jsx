@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-
+import { Element } from "react-scroll";
 const Header = () => {
   const location = useLocation();
   const [navVisible, setNavVisible] = useState(false);
@@ -25,7 +25,8 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div className="">
+       <Element name="home" className="element"></Element>
       <div className={`navSlider ${navVisible ? "open" : ""}`}>
         <div className="h-[100vh] w-[80%] bg-white border-l-2 float-right absolute right-0 flex justify-center items-center">
           <div
@@ -71,7 +72,7 @@ const Header = () => {
         </div>
         <div className="flex gap-2 items-center">
           <a
-            className="bg-green-500 px-3 py-1 flex gap-1 items-center justify-center rounded-md hover:bg-green-500/90"
+            className="bg-green-500 px-5 py-[6px] flex gap-1 items-center justify-center rounded-md hover:bg-green-500/90"
             href="https://wa.me/919636537466"
             target="_blank"
             rel="noopener noreferrer"

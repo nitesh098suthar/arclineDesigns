@@ -3,6 +3,9 @@ import Slider from "react-slick";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneDesignAction } from "../../redux/actions/designActions.js";
 import { useParams } from "react-router-dom";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import Loader from "./Loader.jsx";
 
 const Details = () => {
   const dispatch = useDispatch();
@@ -17,10 +20,10 @@ const Details = () => {
   const oneDesignData = useSelector(
     (state) => state.designReducer.oneDesignData
   );
-  console.log("oneDesignData:", oneDesignData);
+  // console.log("oneDesignData:", oneDesignData);
 
   if (!oneDesignData) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   const { oneDesign } = oneDesignData;
@@ -58,20 +61,17 @@ const Details = () => {
         </div>
       </div>
       <div className="">
-        <Slider {...settings} className=" mb-10">
+        <Carousel>
           {oneDesign?.allImages?.map((item, i) => (
-            <div
-              key={i}
-              className=" bg-lightGrey rounded-xl p-1 w-[400px] h-[225px] "
-            >
+            <div key={i} className="">
               <img
                 src={item.secure_url}
                 alt=""
-                className="object-cover h-full w-full rounded-lg ratio"
+                className="object-cover h-full w-full"
               />
             </div>
           ))}
-        </Slider>
+        </Carousel>
       </div>
       <div className="capitalize">
         <div className="flex items-baseline gap-4">
@@ -81,7 +81,7 @@ const Details = () => {
         <h1 className="text-2xl text-primary mb-2 capitalize">
           {oneDesign.designTitle}
         </h1>
-        <p className="text-sm text-darkGrey border-b-[1px] pb-4 text-justify">
+        <p className="text-sm text-darkGrey border-b-[1px] pb-4 text-justify capitalize">
           {oneDesign.designDes}
         </p>
         <div className="flex py-4 gap-4 border-b-[1px] pb-4 mb-4 mobile:flex-col">
@@ -91,13 +91,25 @@ const Details = () => {
           <h1 className="mobile:hidden mobile:text-center ">|</h1>
           <h1>{`${oneDesign.areaInSquareFeet} Squarefeet`}</h1>
         </div>
-        <div className="flex">
-          <h1 className="">Location: </h1>
-          <h1 className="pl-1 text-darkGrey">{oneDesign.location}</h1>
-        </div>
-        <div className="flex">
-          <h1 className="">{`${oneDesign.profession} Name: `}</h1>
-          <h1 className="pl-1 text-darkGrey">{`${oneDesign.architectName}`}</h1>
+        <div className="flex items-center space-x-4 ">
+        <div className="w-12 h-12 rounded-md overflow-hidden border-lightGrey border-[1px]">
+  <img
+    src={oneDesign?.architectImage?.secure_url} // Fallback to a default image if URL is not available
+    alt="Architect Image"
+    className="object-cover h-full w-full"
+  />
+</div>
+
+          <div>
+            <div className="flex">
+              <h1 className="">Location: </h1>
+              <h1 className="pl-1 text-darkGrey">{oneDesign.location}</h1>
+            </div>
+            <div className="flex">
+              <h1 className="">{`${oneDesign.profession} Name: `}</h1>
+              <h1 className="pl-1 text-darkGrey">{`${oneDesign.architectName}`}</h1>
+            </div>
+          </div>
         </div>
       </div>
     </div>

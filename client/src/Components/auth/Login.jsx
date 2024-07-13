@@ -1,3 +1,5 @@
+
+
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../redux/actions/userActions.js";
@@ -34,59 +36,50 @@ const Login = () => {
       nav("/admin");
     }
   }, [toast, isAuthenticated, error, nav, dispatch, clearUserError]);
+
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
-        <div className="bg-lightColor min-h-[730px]">
-          <h1 className="text-center text-5xl text-white py-14 font-bold xs:text-4xl ">
-            Welcome to Admin Side
-          </h1>
-          <div className="grid place-content-center ">
-            <div className="p-8 bg-cardColor min-h-[450px] rounded-xl w-[500px]">
-              <h1 className="font-bold text-white text-center text-3xl pb-10 pt-4">
-                Login
+        <div className="min-h-[60vh] p-16 w-[600px] mx-auto mobile:w-[380px] xxs:w-[300px]">
+          <div className="flex justify-center items-center">
+            <div className="flex items-center flex-col mb-8">
+              <h1 className="text-3xl font-semibold text-center">
+                Login into admin side
               </h1>
-              <div className="my-4">
-                <label htmlFor="" className="text-dullWhite block w-[100%]">
-                  Email
-                </label>
-                <input
-                  type="text"
-                  className="bg-slate-300 rounded-sm w-full h-[35px] outline-none p-2"
-                  onChange={inputHandler}
-                  name="email"
-                  value={input.email}
-                />
+              <div className="flex gap-1 my-4">
+                <div className="w-14 h-[5px] rounded-full bg-primary"></div>
+                <div className="w-4 h-[5px] rounded-full bg-primary"></div>
               </div>
-              <div className="my-4">
-                <label htmlFor="" className="text-dullWhite block w-[100%]">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="bg-slate-300 rounded-sm w-full h-[35px] outline-none p-2"
-                  onChange={inputHandler}
-                  name="password"
-                  value={input.password}
-                />
-              </div>
-              <div className="flex justify-between my-4">
-                <Link to="/forgetpassword">
-                  <button className="underline text-white outline-none border-0 hover:text-dullWhite">
-                    Forget Password?
-                  </button>
-                </Link>
-
-                <Link to="/signup">
-                  <button className="underline text-white border-0 outline-none hover:text-dullWhite">
-                    Sign Up Here
-                  </button>
-                </Link>
-              </div>
+            </div>
+          </div>
+          <div className="bg-lightGrey border-primary p-6 rounded-lg w-full">
+            <div className="flex flex-col space-y-2 pb-4">
+              <p className="text-sm font-semibold">Email</p>
+              <input
+                type="text"
+                className="bg-white p-2 outline-none rounded-md w-full"
+                      placeholder="Enter your mail id"
+                onChange={inputHandler}
+                name="email"
+                value={input.email}
+              />
+            </div>
+            <div className="flex flex-col space-y-2 pb-2">
+              <p className="text-sm font-semibold">Password</p>
+              <input
+                type="password"
+                className="bg-white p-2 outline-none rounded-md w-full"
+                      placeholder="Enter your password"
+                onChange={inputHandler}
+                name="password"
+                value={input.password}
+              />
+            </div>
+            <div>
               <button
-                className="text-white bg-greenColor rounded-sm w-full h-[35px] border-0 outline-none hover:bg-green-700"
+                className="text-white bg-primary p-2 w-full outline-none rounded-md mt-4 "
                 onClick={submitHandler}
               >
                 Login

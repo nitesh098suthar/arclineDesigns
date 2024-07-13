@@ -32,25 +32,28 @@ const Admin = () => {
         <Loader />
       ) : (
         <div>
-          <div className="sidebar">
-            <span>
+          <div className="sidebar grid place-items-center pt-14">
+            <span className="flex space-x-4 ">
               <button
-                className="m-4 bg-slate-400 p-4 rounded-lg"
+                                className="bg-primary p-2 w-56 outline-none rounded-md text-white hover:bg-primary/90"
+
                 onClick={() => setAssigner("first")}
               >
                 Add Projects
               </button>
               <button
-                className="m-4 bg-slate-400 p-4 rounded-lg"
+                className="bg-primary p-2 w-56 outline-none rounded-md text-white hover:bg-primary/90"
+
                 onClick={showProjectHandler}
               >
                 Show Projects
               </button>
               <button
-                className="m-4 bg-slate-400 p-4 rounded-lg"
+                className="bg-primary p-2 w-56 outline-none rounded-md text-white hover:bg-primary/90"
+
                 onClick={logoutHandler}
               >
-                LogOut Admin
+                Logout Admin
               </button>
             </span>
           </div>
