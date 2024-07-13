@@ -20,18 +20,8 @@ const ResetPassword = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // dispatch(
-    //   resetPasswordAction(token, input.newPassword, input.confirmPassword)
-    // );
-    console.log(
-      // token,
-      input.newPassword,
-      input.confirmPassword,
-      "here is data"
-    );
-    console.log("ho to gye");
+    console.log("reset password yet to create");
   };
-
 
   return (
     <>

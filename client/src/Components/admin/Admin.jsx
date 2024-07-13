@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProjectAdder from "./ProjectAdder";
 import ProjectGetter from "./ProjectGetter";
 import { getAllDesignsAction } from "../../redux/actions/designActions";
@@ -8,12 +8,13 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../Layout/Loader";
 
 const Admin = () => {
-  console.log("hello ");
   const [assigner, setAssigner] = useState("first");
   const dispatch = useDispatch();
   const nav = useNavigate();
-  const { loading } = useSelector((state) => state.globalReducer);
-
+  const { loading: globalLoading } = useSelector(
+    (state) => state.globalReducer
+  );
+  const { loading: userLoading } = useSelector((state) => state.userReducer);
   const showProjectHandler = () => {
     setAssigner("second");
     dispatch(getAllDesignsAction());
@@ -23,6 +24,7 @@ const Admin = () => {
     await dispatch(logOut());
     nav("/");
   };
+  const loading = globalLoading || userLoading;
 
   return (
     <>
@@ -53,8 +55,10 @@ const Admin = () => {
             </span>
           </div>
           <div>
-            {assigner == "first" && <ProjectAdder />}
-            {assigner == "second" && <ProjectGetter />}
+            {assigner === "first" && (
+              <ProjectAdder showProjectHandler={showProjectHandler} />
+            )}
+            {assigner === "second" && <ProjectGetter />}
           </div>
         </div>
       )}

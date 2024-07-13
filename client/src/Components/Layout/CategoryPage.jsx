@@ -8,13 +8,11 @@ import Loader from "./Loader.jsx";
 
 const CategoryPage = () => {
   const { category } = useParams();
-  // console.log("category, ", category);
   const dispatch = useDispatch();
 
-  // todo : later
-  // useEffect(() => {
-  //   dispatch(getAllDesignsAction());
-  // }, [category, dispatch]);
+  useEffect(() => {
+    dispatch(getAllDesignsAction());
+  }, [category, dispatch]);
 
   const { allListings } = useSelector((state) => state.designReducer) || {
     allListings: [],

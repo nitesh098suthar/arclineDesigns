@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteOndeDesignAction,
@@ -6,24 +5,37 @@ import {
 } from "../../redux/actions/designActions";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Layout/Loader";
+import { clearError, clearMessage } from "../../redux/reducers/globalReducer";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const ProjectGetter = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
 
   const { allListings } = useSelector((state) => state.designReducer);
-  const { loading } = useSelector((state) => state.globalReducer);
+  const { loading, message, error } = useSelector(
+    (state) => state.globalReducer
+  );
 
   const updateDesign = (id) => {
     nav(`projectupdater/${id}`);
   };
 
   const deleteDesign = async (id) => {
-    console.log("here is delete id ", id);
     await dispatch(deleteOndeDesignAction(id));
-    await dispatch(getAllDesignsAction());
-    console.log("design delete successfully");
+    dispatch(getAllDesignsAction());
   };
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearError());
+    }
+    if (message) {
+      toast.success("Project deleted successfully.");
+      dispatch(clearMessage());
+    }
+  }, [dispatch, clearMessage, clearError, message, error, toast]);
 
   return (
     <>

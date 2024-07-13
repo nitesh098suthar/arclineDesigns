@@ -12,12 +12,9 @@ import { getAllDesignsAction } from "../../redux/actions/designActions";
 const Landing = () => {
   const dispatch = useDispatch();
   const {allListings} = useSelector(state => state.designReducer)
-  console.log("actual usable data", allListings)
-  // todo: later 
-  // useEffect(() => {
-  //   console.log("--------------------use effect---------------------");
-  //   dispatch(getAllDesignsAction());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAllDesignsAction());
+  }, [dispatch]);
 
   
   return (

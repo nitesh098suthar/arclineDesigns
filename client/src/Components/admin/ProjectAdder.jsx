@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "../Layout/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { req, res, rej } from "../../redux/reducers/globalReducer";
+import {
+  req,
+  res,
+  rej,
+  clearError,
+  clearMessage,
+} from "../../redux/reducers/globalReducer";
+import toast from "react-hot-toast";
 
-function App() {
+function ProjectAdder({ showProjectHandler }) {
   const [input, setInput] = useState({
     designTitle: "",
     location: "",
@@ -22,11 +29,13 @@ function App() {
   const [houseImage, setHouseImage] = useState(null);
   const [allImages, setAllImages] = useState([]);
 
-  const {loading} = useSelector(state => state.globalReducer)
-  const dispatch = useDispatch()
+  const { loading, message, error } = useSelector(
+    (state) => state.globalReducer
+  );
+  const dispatch = useDispatch();
+
   const inputHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    console.log(input);
   };
 
   const numberInputHandler = (e) => {
@@ -37,6 +46,7 @@ function App() {
   const handleHouseImageChange = (e) => {
     setHouseImage(e.target.files[0]);
   };
+
   const handleArchitectImageChange = (e) => {
     setArchitectImage(e.target.files[0]);
   };
@@ -74,7 +84,7 @@ function App() {
     }
 
     try {
-      dispatch(req())
+      dispatch(req());
       const response = await axios.post(
         "http://localhost:9000/api/v1/design",
         formData,
@@ -82,17 +92,26 @@ function App() {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          withCredentials : true // if its not written then req.cookie will will not get {token} from cookies
+          withCredentials: true,
         }
       );
-      dispatch(res(response?.data))
-      alert(response.data.message);
+      dispatch(res(response?.data));
+      showProjectHandler(); // Switch to ProjectGetter after successful form submission
     } catch (error) {
       console.error(error);
-     dispatch( rej(error?.response?.data?.message))
-      alert("Error uploading images");
+      dispatch(rej(error?.response?.data?.message));
     }
   };
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearError());
+    }
+    if (message) {
+      toast.success("Project added successfully.");
+      dispatch(clearMessage());
+    }
+  }, [dispatch, clearMessage, clearError, message, error, toast]);
 
   return (
     <>
@@ -231,4 +250,4 @@ function App() {
   );
 }
 
-export default App;
+export default ProjectAdder;

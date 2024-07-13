@@ -10,10 +10,9 @@ import Loader from "../Layout/Loader.jsx"
 const PopularListing = () => {
   const dispatch = useDispatch();
 
-  // todo: later
-  // useEffect(() => {
-  //   dispatch(getAllDesignsAction());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAllDesignsAction());
+  }, [dispatch]);
 
   const { allListings} = useSelector((state) => state.designReducer);
   const { loading } = useSelector(state => state.globalReducer)

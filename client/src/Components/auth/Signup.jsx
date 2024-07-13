@@ -1,10 +1,17 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../redux/actions/userActions";
 import { Link } from "react-router-dom";
+import Loader from "../Layout/Loader";
+import {
+  clearUserError,
+  clearUserMessage,
+} from "../../redux/reducers/userReducers";
+import toast from "react-hot-toast";
 
 // Signup Component
 const Signup = () => {
+  const { loading, message, error } = useSelector((state) => state.userReducer);
   const [imagePreview, setImagePreview] = useState("");
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
@@ -27,7 +34,7 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (!image) {
-      alert("Please upload an avatar.");
+      toast.error('Please upload and avatar.')
       return;
     }
 
@@ -37,13 +44,11 @@ const Signup = () => {
     myForm.append("password", input.password);
     myForm.append("file", image);
 
-    console.log("register started...");
     for (let [key, value] of myForm.entries()) {
       console.log(key, value);
     }
 
     await dispatch(register(myForm));
-    console.log("register done!");
   };
 
   const inputImageHandler = (e) => {
@@ -58,7 +63,20 @@ const Signup = () => {
     }
   };
 
-  return (
+  useEffect(() => {
+    if (message) {
+      toast.success("Signup successful");
+      dispatch(clearUserMessage());
+    }
+    if (error) {
+      toast.error(error);
+      dispatch(clearUserError());
+    }
+  }, [dispatch, clearUserMessage, clearUserError, toast, message, error]);
+
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <div className="bg-lightColor min-h-[950px]">
         <h1 className="text-center text-5xl text-white py-14 font-bold">

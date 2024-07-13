@@ -24,7 +24,7 @@ import NotFound from "./Components/Not Found/NotFound.jsx";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store.js";
 import { loadUser } from "./redux/actions/userActions.js";
-
+import { Toaster } from "react-hot-toast";
 const App = () => {
   const dispatch = useDispatch();
 
@@ -33,7 +33,6 @@ const App = () => {
   }, [dispatch]);
 
   const { isAuthenticated } = useSelector((state) => state.userReducer);
-  console.log("isAuthenticated", isAuthenticated);
 
   return (
     <>
@@ -104,6 +103,7 @@ const Root = () => (
   <Provider store={store}>
     <Router>
       <App />
+      <Toaster />
     </Router>
   </Provider>
 );

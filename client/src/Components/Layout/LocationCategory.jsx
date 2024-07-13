@@ -10,12 +10,12 @@ const LocationCategory = () => {
   const dispatch = useDispatch();
 
   const { loc } = useParams();
-  // todo: ifx later
-  // useEffect(() => {
-  //   if (loc) {
-  //     dispatch(getAllDesignsAction());
-  //   }
-  // }, [dispatch, loc]);
+
+  useEffect(() => {
+    if (loc) {
+      dispatch(getAllDesignsAction());
+    }
+  }, [dispatch, loc]);
 
   const { allListings } = useSelector((state) => state.designReducer);
   const filteredCategroy = allListings

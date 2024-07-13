@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../redux/actions/userActions.js";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Layout/Loader.jsx";
+import { clearUserError } from "../../redux/reducers/userReducers.js";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -11,19 +13,27 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const {loading} = useSelector(state=>state.globalReducer)
+  const { loading, error, isAuthenticated } = useSelector(
+    (state) => state.userReducer
+  );
   const inputHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("login started ");
     dispatch(login(input.email, input.password));
-    console.log("login ended ");
-    nav("/admin");
   };
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearUserError());
+    }
+    if (isAuthenticated) {
+      nav("/admin");
+    }
+  }, [toast, isAuthenticated, error, nav, dispatch, clearUserError]);
   return (
     <>
       {loading ? (
