@@ -10,6 +10,7 @@ import {
   clearMessage,
 } from "../../redux/reducers/globalReducer";
 import toast from "react-hot-toast";
+import { server } from "../../redux/store";
 
 function ProjectAdder({ showProjectHandler }) {
   const [input, setInput] = useState({
@@ -86,7 +87,7 @@ function ProjectAdder({ showProjectHandler }) {
     try {
       dispatch(req());
       const response = await axios.post(
-        "http://localhost:9000/api/v1/design",
+        `${server}/design`,
         formData,
         {
           headers: {

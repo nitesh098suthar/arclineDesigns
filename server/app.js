@@ -17,10 +17,11 @@ app.use(
     extended: true,
   })
 );
-
+const FRONTEND_URI =
+  process.env.FRONTEND_URL || "https://arcline-designs.netlify.app";
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: FRONTEND_URI,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })

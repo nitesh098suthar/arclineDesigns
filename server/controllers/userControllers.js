@@ -114,17 +114,15 @@ export const updateProfileController = catchAsyncError(
     if (!User1) return next(new ErrorHandler("User not found", 401));
 
     await cloudinary.v2.uploader.destroy(User1.avatar.public_id);
-    
+
     const avatarFile = req.files["file"][0];
     const avatarFileUri = getDataUri(avatarFile).content;
 
-    const avatarFileUpload = await cloudinary.v2.uploader.upload(
-        avatarFileUri
-    );
+    const avatarFileUpload = await cloudinary.v2.uploader.upload(avatarFileUri);
 
     User1.avatar = {
-        public_id: avatarFileUpload.public_id,
-        url: avatarFileUpload.secure_url,
+      public_id: avatarFileUpload.public_id,
+      url: avatarFileUpload.secure_url,
     };
 
     if (name) User1.name = name;
@@ -138,7 +136,6 @@ export const updateProfileController = catchAsyncError(
     });
   }
 );
-
 
 export const forgetPasswordController = catchAsyncError(
   async (req, res, next) => {
@@ -158,7 +155,8 @@ export const forgetPasswordController = catchAsyncError(
     const subject = "Forget password - Arcline Designs";
 
     const resetToken = crypto.randomBytes(10).toString("hex");
-    const url = "http://localhost:5173" + "/resetpassword/" + resetToken;
+    const FRONTEND_URI = process.env.FRONTEND_URI;
+    const url = FRONTEND_URI + "/resetpassword/" + resetToken;
     const body = url;
     const mailSendSuccessfully = await mailSender(email, subject, body);
 

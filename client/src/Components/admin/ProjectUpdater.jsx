@@ -11,6 +11,7 @@ import {
   res,
 } from "../../redux/reducers/globalReducer";
 import toast from "react-hot-toast";
+import { server } from "../../redux/store";
 
 function ProjectUpdater() {
   const { id } = useParams();
@@ -43,7 +44,7 @@ function ProjectUpdater() {
     const fetchDesign = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:9000/api/v1/design/${id}`
+          `${server}/design/${id}`
         );
         setExistingDesign(response.data.oneDesign);
         setInput({
@@ -119,7 +120,7 @@ function ProjectUpdater() {
     try {
       dispatch(req());
       const response = await axios.put(
-        `http://localhost:9000/api/v1/design/${id}`,
+        `${server}/design/${id}`,
         formData,
         {
           headers: {
