@@ -155,8 +155,8 @@ export const forgetPasswordController = catchAsyncError(
     const subject = "Forget password - Arcline Designs";
 
     const resetToken = crypto.randomBytes(10).toString("hex");
-    const FRONTEND_URI = process.env.FRONTEND_URI;
-    const url = FRONTEND_URI + "/resetpassword/" + resetToken;
+    const FRONTEND_URI = process.env.FRONTEND_URL;
+    const url = FRONTEND_URI + "resetpassword/" + resetToken;
     const body = url;
     const mailSendSuccessfully = await mailSender(email, subject, body);
 

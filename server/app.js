@@ -17,8 +17,8 @@ app.use(
     extended: true,
   })
 );
-const FRONTEND_URI =
-  process.env.FRONTEND_URL || "https://arcline-designs.netlify.app";
+
+const FRONTEND_URI = process.env.FRONTEND_URL;
 app.use(
   cors({
     origin: FRONTEND_URI,
