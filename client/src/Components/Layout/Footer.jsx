@@ -10,21 +10,23 @@ import { Link as ScrollLink } from "react-scroll";
 const Footer = () => {
   return (
     <div className="">
-      <div className="flex flex-wrap items-start justify-between bg-lightGrey py-10 px-14  mobile:px-2 mobile:justify-center">
-        <div className="flex flex-col justify-center mobile:items-center">
+      <div className="flex flex-wrap items-start justify-between bg-lightGrey py-10 px-14 smaller:justify-center smaller:text-center">
+        <div className="flex flex-col justify-center ">
           <ScrollLink to="home" smooth={true} duration={500}>
             <Link to={"/"}>
-              {" "}
+              <div className="flex smaller:justify-center">
+
               <img src={logo} alt="" className="w-[120px]" />
+              </div>
             </Link>
           </ScrollLink>
-          <p className="w-80 text-xs leading-relaxed my-4 mobile:text-center">
+          <p className="w-80 text-xs leading-relaxed my-4 ">
             We pride ourselves on delivering innovative and sustainable
             architectural designs tailored to meet the unique needs of our
             clients.
           </p>
           {/* <div className="border-2 border-green-200"> */}
-          <div className="flex gap-2 ">
+          <div className="flex gap-2 smaller:justify-center">
             <div className="bg-primary grid p-1 place-content-center rounded-md  hover:bg-primary/90">
               <InstagramIcon style={{ fontSize: 24, color: "#fff" }} />
             </div>
@@ -41,11 +43,20 @@ const Footer = () => {
               <LinkedInIcon style={{ fontSize: 24, color: "#fff" }} />
             </div>
           </div>
-          {/* </div> */}
+          <div className="pt-4 hidden smaller:flex smaller: justify-center ">
+            <p className="text-darkGrey text-xs mb-1  hover:text-black  smaller:text-primary">
+              <Link to="/policy" className="inline-block smaller:w-[100px]">
+                Privacy Policy
+              </Link>
+            </p>
+            <p className="text-darkGrey text-xs mb-1 hover:text-black  smaller:text-primary">
+              <Link to="/help">Help</Link>
+            </p>
+          </div>
         </div>
-        <div className="flex border-2 w-1/3 justify-between mobile:justify-center">
-          <div className="mobile:hidden">
-            <h1 className="text-sm text-primary mb-2 font-semibold mobile:hidden">
+        <div className="flex border-2 w-1/3 justify-between smaller:hidden">
+          <div className="">
+            <h1 className="text-sm text-primary mb-2 font-semibold">
               Navigation
             </h1>
             <ScrollLink to="home" smooth={true} duration={500}>
@@ -64,7 +75,7 @@ const Footer = () => {
               <Link to="/contact-us">Contact Us</Link>
             </p>
           </div>
-          <div className=" mobile:hidden">
+          <div className=" ">
             <h1 className="text-sm text-primary mb-2 font-semibold">
               Featured Location
             </h1>
@@ -84,16 +95,16 @@ const Footer = () => {
               <Link to="/location/sirohi">Sirohi</Link>
             </p>
           </div>
-          <div className="mobile:flex mobile:pt-8 mobile:font-bold mobile:items-center">
-            <h1 className="text-sm text-primary mb-2 font-semibold mobile:hidden">
+          <div className="">
+            <h1 className="text-sm text-primary mb-2 font-semibold ">
               Other
             </h1>
-            <p className="text-darkGrey text-xs mb-1 mobile:text-primary hover:text-black">
-              <Link to="/policy" className="inline-block mobile:w-[100px]">
+            <p className="text-darkGrey text-xs mb-1  hover:text-black">
+              <Link to="/policy" className="inline-block smaller:w-[100px]">
                 Privacy Policy
               </Link>
             </p>
-            <p className="text-darkGrey text-xs mb-1 mobile:text-primary hover:text-black">
+            <p className="text-darkGrey text-xs mb-1 hover:text-black">
               <Link to="/help">Help</Link>
             </p>
           </div>

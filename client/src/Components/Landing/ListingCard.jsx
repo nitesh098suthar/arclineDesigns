@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 const ListingCard = ({ item }) => {
   return (
     <div className="capitalize">
-      <div className="border-[1px] border-lightGrey rounded-xl w-[400px] mobile:w-[300px] h-[430px] my-2 hover:bg-lightGrey/30 transition-colors overflow-hidden">
-        <div className="p-2 h-[230px] overflow-hidden">
+      <div className="border-[1px] border-lightGrey rounded-xl w-full greaterThanMobile:h-[430px] hover:bg-lightGrey/30 transition-colors overflow-hidden">
+        <div className="p-2 overflow-hidden  greaterThanMobile:h-[230px]">
           <img
             src={item.houseImage?.secure_url}
             alt=""
-            className="rounded-md object-cover"
+            className="rounded-md object-cover w-full"
           />
         </div>
         <div className="p-2">

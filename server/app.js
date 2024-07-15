@@ -18,7 +18,7 @@ app.use(
   })
 );
 
-const FRONTEND_URI = process.env.FRONTEND_URL;
+const FRONTEND_URI = "http://localhost:5173" || process.env.FRONTEND_URL ;
 app.use(
   cors({
     origin: FRONTEND_URI,

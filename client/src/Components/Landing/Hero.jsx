@@ -19,6 +19,7 @@ const Hero = () => {
         <p className=" text-xl text-darkGrey mobile:text-center">
           Design Buildings, Interiors, and Landscapes in Just a Few Clicks
         </p>
+        <div className="mobile:flex mobile:justify-center">
         {isAuthenticated && (
           <button
             onClick={() => nav("/admin")}
@@ -28,6 +29,7 @@ const Hero = () => {
             <ArrowOutwardIcon />
           </button>
         )}
+        </div>
       </div>
     </div>
   );

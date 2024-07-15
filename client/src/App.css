@@ -17,116 +17,19 @@
   height: 100vh;
 }
 
-/* --------------- Gradient for location area ------------------ */
 
-.gradien {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0),
-    rgba(0, 0, 0, 1)
-  );
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  bottom: 0px;
-  left: 0;
-}
-.locationCard {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensure the image covers the container */
-}
+/* ==============================testimonials=============================== */
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: flex-end; /* Align the text at the bottom */
-  justify-content: flex-start; /* Align the text to the left */
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0),
-    rgba(0, 0, 0, 1)
-  );
-  padding: 16px; /* Adjust the padding as needed */
-}
-
-.overlay p {
-  margin: 0; /* Remove any default margin from the paragraph */
-}
-
-/* ================================ Testimonials React Slick ================================ */
-
-.mainTestimonialsSliderWrapper::-webkit-scrollbar {
-  width: 0;
-}
-
-/* Optionally, you can add styles to the track if needed */
-.mainTestimonialsSliderWrapper::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.blackToWhite {
-  filter: invert(95%);
-}
 
 .slick-slide > div {
-  margin: 15px;
+  margin-right: 15px;
   /* width: 400px; */
 }
 
-.slick-slider {
-  width: 80vw;
-}
-
-.slick-dots {
-  position: absolute;
-  bottom: -25px;
-  top : 0;
-  left:0;
-  transform: translate(-20%, 92%);
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  text-align: center;
-}
-
-
-.testimonialSlick .slick-slider {
-  /* left: 140px; */
-}
-
-/* --------------dots---------------- */
-
-@media (max-width: 768px) {
-  .slick-slider {
-    left: -27px;
-    width: 320px;
-  }
-}
-@media (max-width: 361px) {
-  
-  .testimonialSlick .slick-slider {
-    left: 40px;
-  }
-  .slick-slider {
-    left: 00px;
-    width: 280px;
-  }
-}
 
 /* =================== Griding System Featured Location ================== */
 
-.gridSystemOuter {
+/* .gridSystemOuter {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 100vw;
@@ -139,7 +42,7 @@
   grid-template-columns: 1fr 1fr;
   place-items: center;
   width: 610px;               
-}
+} */
 
 /* --------------------------- */
 
@@ -161,10 +64,11 @@
   top: 0;
   right: -80%;
   width: 80%;
-  height: 100vh;
+  height: 100%;
   background-color: white;
   border-left: 2px solid lightgrey;
   transition: transform 0.3s ease-in-out;
+  z-index: 10;
 }
 
 .navSlider.open {
@@ -226,3 +130,128 @@
   ::-webkit-scrollbar{
     width: 0;
   }
+
+
+
+/* ==========================testimonials======================= */
+
+.outerBox{
+  /* background-color:rgb(140, 69, 69); */
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  column-gap: 10px;
+  height: 310px;
+}
+
+.child{
+  height: 100%;
+  /* background-color: green; */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.specialChild{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 10px;
+  column-gap: 10px;
+}
+
+.grandChild{
+  height: 100%;
+  /* background-color: cyan; */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.outerBox img{
+  object-fit: cover;
+  width: 100%;
+} 
+
+@media (max-width: 430px)
+{
+  .outerBox{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 4fr 1fr;
+    row-gap: 10px;
+    height: 3000px;
+  }
+  .specialChild{
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1f);
+    row-gap: 10px;
+
+  }
+}
+
+/* ------------ */
+
+
+.gradien {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0),
+    rgba(0, 0, 0, 1)
+    );
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+  }
+  .locationCard {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the image covers the container */
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end; /* Align the text at the bottom */
+    justify-content: flex-start; /* Align the text to the left */
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0),
+      rgba(0, 0, 0, 1)
+      );
+      padding: 16px; /* Adjust the padding as needed */
+    }
+    
+    .overlay p {
+      margin: 0; /* Remove any default margin from the paragraph */
+      
+    }
+    
+    /* ------scalling image------ */
+    .forOverlay:hover img{
+      scale:1.1;
+  transition : .3s scale;
+}
+
+/* ==========================popular listing======================= */
+
+
+.gridingMain{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+
+@media (max-width: 430px)
+{
+  .gridingMain{
+    grid-template-columns: 1fr;
+  }
+}

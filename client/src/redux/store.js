@@ -4,8 +4,8 @@ import designReducer from "./reducers/designReducer.js";
 import globalReducer from "./reducers/globalReducer.js";
 import axios from "axios";
 
-// export const server = "http://localhost:9000";
-export const server = "https://arclinedesigns.onrender.com";
+export const server = "http://localhost:9000";
+// export const server = "https://arclinedesigns.onrender.com";
 
 export const instance = axios.create({
   baseURL: `${server}/api/v1`,

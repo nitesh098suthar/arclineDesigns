@@ -19,16 +19,16 @@ const Insight = () => {
   return (
     <div className="flex flex-wrap justify-between items-center py-20 bg-lightGrey px-14 mobile:justify-center">
       <div className="mb-6">
+      </div>
+      <div className="flex flex-wrap justify-between items-center gap-8 mobile:justify-center mobile:flex-col">
         <h1 className="text-black text-4xl text-left font-semibold mobile:text-center">
           Insights and <br /> Performance <br /> Metrics
         </h1>
-      </div>
-      <div className="flex flex-wrap justify-between items-center gap-8 mobile:justify-center">
         {insight.map((item, i) => {
           return (
             <div
               key={i}
-              className="bg-primary p-8 rounded-lg w-[280px] shadow-lg hover:shadow-primary/50 hover:scale-105 transition-all"
+              className="bg-primary p-8 rounded-lg w-[300px] shadow-lg hover:shadow-primary/50 hover:scale-105 transition-all"
             >
               <h1 className="text-white text-4xl text-center font-semibold">
                 {item.value}+

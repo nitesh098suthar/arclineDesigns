@@ -44,7 +44,7 @@ function ProjectUpdater() {
     const fetchDesign = async () => {
       try {
         const response = await axios.get(
-          `${server}/design/${id}`
+          `${server}/api/v1/design/${id}`
         );
         setExistingDesign(response.data.oneDesign);
         setInput({
@@ -120,7 +120,7 @@ function ProjectUpdater() {
     try {
       dispatch(req());
       const response = await axios.put(
-        `${server}/design/${id}`,
+        `${server}/api/v1/design/${id}`,
         formData,
         {
           headers: {

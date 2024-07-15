@@ -26,7 +26,7 @@ const PopularListing = () => {
   return (
     <>
     {
-      loading ? (<Loader />) : (<div className="my-12 px-14 mobile:px-2">
+      loading ? (<Loader />) : (<div className="my-12 px-20 mobile:px-14">
         <div className="flex justify-center items-center flex-wrap">
           <div className=" flex items-center flex-col mb-8">
             <h1 className="text-3xl font-semibold">Popular Listing</h1>
@@ -37,7 +37,7 @@ const PopularListing = () => {
           </div>
         </div>
         <div>
-          <div className="flex justify-between w-full flex-wrap mobile:justify-center">
+          <div className="gridingMain">
             {popularListing.map((item, i) => (
               <Link key={i} to={`/design/${item._id}`}>
                 <ListingCard item={item} />

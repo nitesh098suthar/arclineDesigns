@@ -35,7 +35,7 @@ const CategoryPage = () => {
       ) : (
         <div className="pb-20">
           <BestCategories />
-          <div className="grid grid-cols-3 place-items-center mobile:grid-cols-1">
+          <div className="gridingMain">
             {category === "all"
               ? allListings?.map((item, index) => {
                   return (

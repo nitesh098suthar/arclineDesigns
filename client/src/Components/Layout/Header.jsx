@@ -49,7 +49,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="flex mobile:px-2 justify-between items-center h-16 border-b-[1px] border-lightGrey px-14 mobile:no-wrap xxs:no-wrap">
+      <div className="flex mobile:px-14 justify-between items-center h-16 border-b-[1px] border-lightGrey px-14 mobile:no-wrap xxs:no-wrap">
         <Link to="/">
           <img src={logo} alt="Logo" className="w-[120px] cursor-pointer" />
         </Link>
@@ -81,7 +81,7 @@ const Header = () => {
             <p className="pt-[1px] text-white text-sm">WhatsApp</p>
           </a>
           <span
-            className="hidden mobile:block xxs:block border-[1px] border-lightGrey p-[2px] rounded-md hover:lightGrey"
+            className="hidden  xxs:block  border-[1px] border-lightGrey p-[2px] rounded-md hover:lightGrey mobile:grid mobile:place-items-center h-[36px] w-[36px]"
             onClick={showNavigation}
           >
             <MenuIcon />
