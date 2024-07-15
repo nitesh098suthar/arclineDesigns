@@ -100,7 +100,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-xs text-darkGrey text-center py-4">
-        "© 2024 Arcline Designs. All rights reserved." "Contact us for creating
+        "© 2024 Arcline Designs. All rights reserved." <br /> "Contact us for creating
         your website - +91 63785 89875"
       </div>
     </div>
