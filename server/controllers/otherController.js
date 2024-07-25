@@ -4,13 +4,13 @@ import { mailSender } from "../utils/mailSender.js";
 
  export const contactUsController = catchAsyncError(async(req, res, next)=>{
 
-    const {name, email, message} = req.body
-
+    const {name, phone, message} = req.body
+  
     const subject = "Contact form from user - Arcline Designs";
 
     const to = "nitesh098suthar@gmail.com"
 
-    const body = `name : ${name} | email : ${email} | message : ${message}`;
+    const body = `name : ${name} | phone : ${phone} | message : ${message}`;
     const mailSendSuccessfully = await mailSender(to, subject, body);
 
     if (!mailSendSuccessfully)

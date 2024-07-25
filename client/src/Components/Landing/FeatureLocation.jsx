@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const FeatureLocation = () => {
   return (
-    <div className="px-14 my-12">
+    <div className="px-6 my-12">
       <div className="flex justify-center items-center">
         <div className=" flex items-center flex-col mb-8">
           <h1 className="text-3xl font-semibold">Featured Location</h1>

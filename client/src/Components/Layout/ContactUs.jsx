@@ -8,7 +8,7 @@ import Loader from "./Loader";
 const ContactUs = () => {
   const [input, setInput] = useState({
     name: "",
-    email: "",
+    phone: "",
     message: "",
   });
 
@@ -19,10 +19,10 @@ const ContactUs = () => {
   };
 
   const submitHandler = async () => {
-    dispatch(contactUsAction(input.name, input.email, input.message));
+    dispatch(contactUsAction(input.name, input.phone, input.message));
     setInput({
       name: "",
-      email: "",
+      phone: "",
       message: "",
     });
   };
@@ -43,7 +43,7 @@ const ContactUs = () => {
   return loading ? (
     <Loader />
   ) : (
-    <div className="min-h-[60vh] p-10 w-[600px] mx-auto mobile:w-[380px] xxs:w-[300px]">
+    <div className="min-h-[60vh] p-10 w-[600px] mx-auto mobile:w-[380px]">
       <div className="flex justify-center items-center ">
         <div className=" flex items-center flex-col mb-8">
           <h1 className="text-3xl font-semibold text-center">
@@ -68,13 +68,13 @@ const ContactUs = () => {
           />
         </div>
         <div className="w-full  mb-3">
-          <p>Email</p>
+          <p>Phone Number</p>
           <input
             onChange={inputHandler}
-            name="email"
-            value={input.email}
+            name="phone"
+            value={input.phone}
             type="text"
-            placeholder="Enter your email"
+            placeholder="Enter your phone"
             className="bg-whtie p-2 outline-none rounded-md w-full"
           />
         </div>

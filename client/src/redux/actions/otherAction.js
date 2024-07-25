@@ -1,12 +1,12 @@
 import { instance } from "../store";
 import { rej, req, res } from "../reducers/globalReducer.js";
 
-export const contactUsAction = (name, email, message) => async (dispatch) => {
+export const contactUsAction = (name, phone, message) => async (dispatch) => {
   try {
     dispatch(req());
     const { data } = await instance.post("/contactus", {
       name,
-      email,
+      phone,
       message,
     });
     dispatch(res(data));

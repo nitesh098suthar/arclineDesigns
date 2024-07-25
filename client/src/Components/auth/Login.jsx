@@ -42,7 +42,7 @@ const Login = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="min-h-[60vh] p-16 w-[600px] mx-auto mobile:w-[380px] xxs:w-[300px]">
+        <div className="min-h-[60vh] p-6 w-[600px] mx-auto mobile:w-full">
           <div className="flex justify-center items-center">
             <div className="flex items-center flex-col mb-8">
               <h1 className="text-3xl font-semibold text-center">

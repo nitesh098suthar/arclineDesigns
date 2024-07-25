@@ -86,16 +86,12 @@ function ProjectAdder({ showProjectHandler }) {
 
     try {
       dispatch(req());
-      const response = await axios.post(
-        `${server}/design`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${server}/api/v1/design`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
       dispatch(res(response?.data));
       showProjectHandler(); // Switch to ProjectGetter after successful form submission
     } catch (error) {
@@ -120,10 +116,12 @@ function ProjectAdder({ showProjectHandler }) {
       {loading ? (
         <Loader />
       ) : (
-        <div className="min-h-[60vh] p-10 w-[600px] mx-auto mobile:w-[380px] xxs:w-[300px] pb-20">
+        <div className="min-h-[60vh] p-6 w-[600px] mx-auto mobile:w-full pb-20">
           <div className="flex justify-center items-center">
             <div className="flex items-center flex-col mb-8">
-              <h1 className="text-3xl font-semibold text-center">Create a new project</h1>
+              <h1 className="text-3xl font-semibold text-center">
+                Create a new project
+              </h1>
               <div className="flex gap-1 my-4">
                 <div className="w-14 h-[5px] rounded-full bg-primary"></div>
                 <div className="w-4 h-[5px] rounded-full bg-primary"></div>
@@ -157,7 +155,9 @@ function ProjectAdder({ showProjectHandler }) {
                 </div>
                 <div className="flex space-x-4">
                   <div className="flex flex-col space-y-2 w-full">
-                    <label className="text-sm font-semibold">Height in Feet</label>
+                    <label className="text-sm font-semibold">
+                      Height in Feet
+                    </label>
                     <input
                       className="bg-white p-2 outline-none rounded-md w-full"
                       type="text"
@@ -168,7 +168,9 @@ function ProjectAdder({ showProjectHandler }) {
                     />
                   </div>
                   <div className="flex flex-col space-y-2 w-full">
-                    <label className="text-sm font-semibold">Width in Feet</label>
+                    <label className="text-sm font-semibold">
+                      Width in Feet
+                    </label>
                     <input
                       className="bg-white p-2 outline-none rounded-md w-full"
                       type="text"
@@ -181,7 +183,9 @@ function ProjectAdder({ showProjectHandler }) {
                 </div>
                 <div className="flex space-x-4">
                   <div className="flex flex-col space-y-2 w-full">
-                    <label className="text-sm font-semibold">Number of Bathrooms</label>
+                    <label className="text-sm font-semibold">
+                      Number of Bathrooms
+                    </label>
                     <input
                       className="bg-white p-2 outline-none rounded-md w-full"
                       type="text"
@@ -192,7 +196,9 @@ function ProjectAdder({ showProjectHandler }) {
                     />
                   </div>
                   <div className="flex flex-col space-y-2 w-full">
-                    <label className="text-sm font-semibold">Number of Bedrooms</label>
+                    <label className="text-sm font-semibold">
+                      Number of Bedrooms
+                    </label>
                     <input
                       className="bg-white p-2 outline-none rounded-md w-full"
                       type="text"
@@ -204,7 +210,9 @@ function ProjectAdder({ showProjectHandler }) {
                   </div>
                 </div>
                 <div className="flex flex-col space-y-2">
-                  <label className="text-sm font-semibold">Architect Name</label>
+                  <label className="text-sm font-semibold">
+                    Architect Name
+                  </label>
                   <input
                     className="bg-white p-2 outline-none rounded-md w-full"
                     type="text"
@@ -256,7 +264,9 @@ function ProjectAdder({ showProjectHandler }) {
                   </select>
                 </div>
                 <div className="flex flex-col space-y-2">
-                  <label className="text-sm font-semibold">Design Description</label>
+                  <label className="text-sm font-semibold">
+                    Design Description
+                  </label>
                   <input
                     className="bg-white p-2 outline-none rounded-md w-full"
                     type="text"
@@ -269,7 +279,7 @@ function ProjectAdder({ showProjectHandler }) {
               </div>
               <div className="space-y-2">
                 <div className="flex flex-col space-y-2">
-                  <label className="text-sm font-semibold">House Image</label>
+                  <label className="text-sm font-semibold">House Thumbnail</label>
                   <input
                     className="bg-white p-2 outline-none rounded-md w-full"
                     type="file"
@@ -277,7 +287,9 @@ function ProjectAdder({ showProjectHandler }) {
                   />
                 </div>
                 <div className="flex flex-col space-y-2">
-                  <label className="text-sm font-semibold">Architect Image</label>
+                  <label className="text-sm font-semibold">
+                    Architect Image
+                  </label>
                   <input
                     className="bg-white p-2 outline-none rounded-md w-full"
                     type="file"
@@ -285,7 +297,9 @@ function ProjectAdder({ showProjectHandler }) {
                   />
                 </div>
                 <div className="flex flex-col space-y-2">
-                  <label className="text-sm font-semibold">Additional Images</label>
+                  <label className="text-sm font-semibold">
+                    Additional Images
+                  </label>
                   <input
                     className="bg-white p-2 outline-none rounded-md w-full"
                     type="file"

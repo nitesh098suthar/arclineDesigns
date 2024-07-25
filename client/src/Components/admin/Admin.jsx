@@ -33,23 +33,23 @@ export const Admin = () => {
       ) : (
         <div>
           <div className="sidebar grid place-items-center pt-14">
-            <span className="flex space-x-4 ">
+            <span className="flex flex-wrap gap-2 justify-center">
               <button
-                className="bg-primary p-2 w-56 outline-none rounded-md text-white hover:bg-primary/90"
+                className="bg-primary p-2 w-40 outline-none rounded-md text-white hover:bg-primary/90"
 
                 onClick={() => setAssigner("first")}
               >
                 Add Projects
               </button>
               <button
-                className="bg-primary p-2 w-56 outline-none rounded-md text-white hover:bg-primary/90"
+                className="bg-primary p-2 w-40 outline-none rounded-md text-white hover:bg-primary/90"
 
                 onClick={showProjectHandler}
               >
                 Show Projects
               </button>
               <button
-                className="bg-primary p-2 w-56 outline-none rounded-md text-white hover:bg-primary/90"
+                className="bg-primary p-2 w-40 outline-none rounded-md text-white hover:bg-primary/90"
 
                 onClick={logoutHandler}
               >

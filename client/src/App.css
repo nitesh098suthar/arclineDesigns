@@ -17,34 +17,12 @@
   height: 100vh;
 }
 
-
 /* ==============================testimonials=============================== */
 
-
 .slick-slide > div {
-  margin-right: 15px;
+  margin: 0 15px;
   /* width: 400px; */
 }
-
-
-/* =================== Griding System Featured Location ================== */
-
-/* .gridSystemOuter {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 100vw;
-  outline: 2px solid red;
-  padding: 0 56px;
-}
-.gridingSystemInner {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  place-items: center;
-  width: 610px;               
-} */
-
-/* --------------------------- */
 
 .locationCard {
   width: 100%;
@@ -75,67 +53,21 @@
   transform: translateX(-100%);
 }
 
-
 /* ================================Sign Up================================ */
 
 .imageInput > input[type="file"] {
   display: none;
 }
 
-
-/* ==============================Loader=============================== */
-
-.loader {
-  height: 100vh;
-  width: 100%;
-  display: grid;
-  align-items: center;
-  background-color:#d9d9d9 ;
-  display: grid;
-  place-content: center;
-}
-.loaderCircle {
-  height: 60px;
-  width: 60px;
-  background: conic-gradient(white, rgb(77, 77, 77));
-  border-radius: 50%;
-  position: relative;
-  animation: loading 1s linear infinite;
-}
-.loaderCircle::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  background-color: #d9d9d9;
-  margin: 10px;
-}
-@keyframes loading {
-  0% {
-    transform: rotate(360deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-
 /* -----------------Project getter----------------- */
 
-
-
-  ::-webkit-scrollbar{
-    width: 0;
-  }
-
-
+/* ::-webkit-scrollbar {
+  width: 0;
+} */
 
 /* ==========================testimonials======================= */
 
-.outerBox{
+.outerBox {
   /* background-color:rgb(140, 69, 69); */
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
@@ -143,50 +75,47 @@
   height: 310px;
 }
 
-.child{
+.child {
   height: 100%;
   /* background-color: green; */
   border-radius: 12px;
   overflow: hidden;
 }
 
-.specialChild{
+.specialChild {
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 10px;
   column-gap: 10px;
 }
 
-.grandChild{
+.grandChild {
   height: 100%;
   /* background-color: cyan; */
   border-radius: 12px;
   overflow: hidden;
 }
 
-.outerBox img{
+.outerBox img {
   object-fit: cover;
   width: 100%;
-} 
+}
 
-@media (max-width: 430px)
-{
-  .outerBox{
+@media (max-width: 768px) {
+  .outerBox {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 4fr 1fr;
     row-gap: 10px;
     height: 3000px;
   }
-  .specialChild{
+  .specialChild {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 1f);
     row-gap: 10px;
-
   }
 }
 
 /* ------------ */
-
 
 .gradien {
   background: linear-gradient(
@@ -195,63 +124,63 @@
     rgba(255, 255, 255, 0),
     rgba(255, 255, 255, 0),
     rgba(0, 0, 0, 1)
-    );
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    bottom: 0px;
-    left: 0;
-  }
-  .locationCard {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensure the image covers the container */
-  }
-  
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: flex-end; /* Align the text at the bottom */
-    justify-content: flex-start; /* Align the text to the left */
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(0, 0, 0, 1)
-      );
-      padding: 16px; /* Adjust the padding as needed */
-    }
-    
-    .overlay p {
-      margin: 0; /* Remove any default margin from the paragraph */
-      
-    }
-    
-    /* ------scalling image------ */
-    .forOverlay:hover img{
-      scale:1.1;
-  transition : .3s scale;
+  );
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+}
+.locationCard {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the container */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end; /* Align the text at the bottom */
+  justify-content: flex-start; /* Align the text to the left */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0),
+    rgba(0, 0, 0, 1)
+  );
+  padding: 16px; /* Adjust the padding as needed */
+}
+
+.overlay p {
+  margin: 0; /* Remove any default margin from the paragraph */
+}
+
+/* ------scalling image------ */
+.forOverlay:hover img {
+  scale: 1.1;
+  transition: 0.3s scale;
 }
 
 /* ==========================popular listing======================= */
 
-
-.gridingMain{
+.gridingMain {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 20px;
   row-gap: 20px;
 }
 
-
-@media (max-width: 430px)
-{
-  .gridingMain{
+@media (max-width: 768px) {
+  .overlay > p {
+    font-size: 30px;
+    overflow: hidden;
+  }
+  .gridingMain {
     grid-template-columns: 1fr;
   }
 }

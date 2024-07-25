@@ -11,12 +11,11 @@ import { getAllDesignsAction } from "../../redux/actions/designActions";
 
 const Landing = () => {
   const dispatch = useDispatch();
-  const {allListings} = useSelector(state => state.designReducer)
+  const { allListings } = useSelector((state) => state.designReducer);
   useEffect(() => {
     dispatch(getAllDesignsAction());
   }, [dispatch]);
 
-  
   return (
     <>
       <div className="">
@@ -25,7 +24,9 @@ const Landing = () => {
         <PopularListing />
         <Insight />
         <FeatureLocation />
-        <Testimonials />
+        <div className="container overflow-hidden">
+          <Testimonials />
+        </div>
       </div>
     </>
   );

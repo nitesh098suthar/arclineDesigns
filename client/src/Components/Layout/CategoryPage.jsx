@@ -33,7 +33,7 @@ const CategoryPage = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="pb-20">
+        <div className="pb-20 px-6">
           <BestCategories />
           <div className="gridingMain">
             {category === "all"

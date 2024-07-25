@@ -22,7 +22,7 @@ const BestCategories = () => {
           </div>
         </div>
       </div>
-      <div className="flex gap-6 justify-center flex-wrap px-10">
+      <div className="flex gap-6 justify-center flex-wrap px-6">
         {bestCategories.map((item, index) => (
           <Link
             key={index}

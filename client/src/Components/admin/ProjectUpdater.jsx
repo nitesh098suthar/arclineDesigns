@@ -149,11 +149,11 @@ function ProjectUpdater() {
       {loading ? (
         <Loader />
       ) : (
-        <div className="min-h-[60vh] p-10 w-[600px] mx-auto mobile:w-[380px] xxs:w-[300px] pb-20">
+        <div className="min-h-[60vh] p-6 w-[600px] mx-auto mobile:w-full pb-20">
           <div className="flex justify-center items-center">
             <div className="flex items-center flex-col mb-8">
               <h1 className="text-3xl font-semibold text-center">
-                Update current Project
+                 Update Project
               </h1>
               <p className="text-center text-sm mt-2">
                 If you'll not add any image in image fields then old images will
@@ -317,7 +317,7 @@ function ProjectUpdater() {
                 </div>
                 <div className="flex flex-col space-y-2">
                   <label className="text-sm font-semibold">
-                    Upload House Image
+                     House Thumbnail
                   </label>
                   <input
                     className="bg-white p-2 outline-none rounded-md w-full border-[1px] border-gray-300"
@@ -327,7 +327,7 @@ function ProjectUpdater() {
                 </div>
                 <div className="flex flex-col space-y-2">
                   <label className="text-sm font-semibold">
-                    Upload Architect Image
+                     Architect Image
                   </label>
                   <input
                     className="bg-white p-2 outline-none rounded-md w-full border-[1px] border-gray-300"
@@ -337,7 +337,7 @@ function ProjectUpdater() {
                 </div>
                 <div className="flex flex-col space-y-2">
                   <label className="text-sm font-semibold">
-                    Upload Additional Images
+                     Additional Images
                   </label>
                   <input
                     className="bg-white p-2 outline-none rounded-md w-full border-[1px] border-gray-300"
@@ -360,7 +360,7 @@ function ProjectUpdater() {
                   type="submit"
                   className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition w-full"
                 >
-                  Update Project
+                   Project
                 </button>
               </div>
             </form>

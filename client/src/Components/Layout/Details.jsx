@@ -50,7 +50,7 @@ const Details = () => {
   }
 
   return (
-    <div className="px-14 py-10">
+    <div className="px-6 py-10">
       <div className="flex justify-center items-center ">
         <div className=" flex items-center flex-col mb-8">
           <h1 className="text-3xl font-semibold">Project Details</h1>

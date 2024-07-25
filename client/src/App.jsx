@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -25,6 +25,7 @@ import { Admin } from "./Components/admin/Admin.jsx";
 
 const App = () => {
   const dispatch = useDispatch();
+  const [navVisible, setNavVisible] = useState(false);
 
   useEffect(() => {
     dispatch(loadUser());
@@ -34,9 +35,9 @@ const App = () => {
 
   return (
     <Router>
-      <div className="grid place-items-center">
-        <div className="w-[1366px]">
-          <Header />
+      <div className={`flex justify-center ${navVisible && "overflow-hidden fixed"}`}>
+        <div className="lg:w-screen container">
+          <Header navVisible={navVisible} setNavVisible={setNavVisible}/>
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/contact-us" element={<ContactUs />} />

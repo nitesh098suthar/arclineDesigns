@@ -1,18 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const ListingCard = ({ item }) => {
+  const image = item.houseImage?.secure_url || "/images/fallback.png";
   return (
-    <div className="capitalize">
-      <div className="border-[1px] border-lightGrey rounded-xl w-full greaterThanMobile:h-[430px] hover:bg-lightGrey/30 transition-colors overflow-hidden">
-        <div className="p-2 overflow-hidden  greaterThanMobile:h-[230px]">
+    <div className="h-full">
+      <div className="border-[1px] border-lightGrey rounded-xl w-full  hover:bg-lightGrey/30 transition-colors overflow-hidden">
+        <div className="p-2 overflow-hidden h-[22vh] w-full ">
           <img
-            src={item.houseImage?.secure_url}
-            alt=""
-            className="rounded-md object-cover w-full"
+            src={image}
+            alt="architure-image"
+            className="rounded-md object-cover w-full h-full block"
           />
         </div>
-        <div className="p-2">
+        <div className="p-2 lg:h-[18vh] h-full">
           <div className="flex gap-2 items-baseline px-2">
             <h3 className="text-primary font-medium text-lg">{`${item?.widthInFeet}' x ${item?.heightInFeet}'`}</h3>
             <p className="text-darkGrey capitalize">{item?.category}</p>

@@ -1,11 +1,9 @@
-
-
 import React, { useEffect } from "react";
 import ListingCard from "./ListingCard.jsx";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllDesignsAction } from "../../redux/actions/designActions.js";
-import Loader from "../Layout/Loader.jsx"
+import Loader from "../Layout/Loader.jsx";
 
 const PopularListing = () => {
   const dispatch = useDispatch();
@@ -14,8 +12,8 @@ const PopularListing = () => {
     dispatch(getAllDesignsAction());
   }, [dispatch]);
 
-  const { allListings} = useSelector((state) => state.designReducer);
-  const { loading } = useSelector(state => state.globalReducer)
+  const { allListings } = useSelector((state) => state.designReducer);
+  const { loading } = useSelector((state) => state.globalReducer);
   // Ensure allListings is defined and not null
   const popularListing = allListings
     ? allListings.filter((item) => {
@@ -25,37 +23,40 @@ const PopularListing = () => {
 
   return (
     <>
-    {
-      loading ? (<Loader />) : (<div className="my-12 px-20 mobile:px-14">
-        <div className="flex justify-center items-center flex-wrap">
-          <div className=" flex items-center flex-col mb-8">
-            <h1 className="text-3xl font-semibold">Popular Listing</h1>
-            <div className="flex gap-1 my-4">
-              <div className="w-14 h-[5px] rounded-full bg-primary"></div>
-              <div className="w-4 h-[5px] rounded-full bg-primary"></div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="my-12 px-6">
+          <div className="flex justify-center items-center flex-wrap">
+            <div className=" flex items-center flex-col mb-8">
+              <h1 className="text-3xl font-semibold">Popular Listing</h1>
+              <div className="flex gap-1 my-4">
+                <div className="w-14 h-[5px] rounded-full bg-primary"></div>
+                <div className="w-4 h-[5px] rounded-full bg-primary"></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div className="gridingMain">
+          <div className="flex flex-wrap gap-4 w-full justify-center">
             {popularListing.map((item, i) => (
-              <Link key={i} to={`/design/${item._id}`}>
+              <Link
+                key={i}
+                to={`/design/${item._id}`}
+                className="lg:w-[30%] w-full lg:h-[40vh] h-fit"
+              >
                 <ListingCard item={item} />
               </Link>
             ))}
           </div>
+          <div className="flex justify-center">
+            <Link to={"category/all"}>
+              <button className="bg-primary text-white rounded-full text-sm px-6 py-2 mt-8 hover:bg-primary/90 transition-colors">
+                Load More
+              </button>
+            </Link>
+          </div>
         </div>
-        <div className="flex justify-center">
-          <Link to={"category/all"}>
-          <button className="bg-primary text-white rounded-full text-sm px-6 py-2 mt-8 hover:bg-primary/90 transition-colors">
-            Load More
-          </button>
-          </Link>
-        </div>
-      </div>)
-    }
+      )}
     </>
-    
   );
 };
 

@@ -24,13 +24,13 @@ const LocationCategory = () => {
       })
     : [];
   return (
-    <div className="min-h-[60vh] my-12 px-14 mobile:px-2">
-      <div className="grid grid-cols-3 place-items-center">
+    <div className="min-h-[60vh] my-12 px-6 ">
+      <div className="gridingMain">
         {filteredCategroy.map((item, index) => {
           return (
             <Link key={index} to={`/design/${item._id}`}>
               <ListingCard key={index} item={item} />
-            </Link>
+            </Link> 
           );
         })}
       </div>
